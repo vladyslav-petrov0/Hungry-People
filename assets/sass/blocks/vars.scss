@@ -1,0 +1,33 @@
+// == VARS ==
+
+
+
+
+// == MIXINS ==
+
+@mixin noSelect {
+    user-select: none;
+    pointer-events: none;
+}
+
+// text
+
+@mixin text($param1, $param2, $param3) {
+    font-family: $param1;
+    font-style: $param2;
+    font-weight: $param3;
+}
+
+
+@mixin animated($param) {
+    &.animated {
+        transform: $param; 
+        opacity: 1;
+    }
+}
+
+@mixin animTrans($param1, $param2, $param3) {
+    transition: all $param1 ease $param2;
+    transform: $param3; 
+    opacity: 0;
+}
