@@ -1,0 +1,26 @@
+.title {
+    font-family: $font1;
+    font-size: 36px;
+    line-height: 48px;
+
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+
+    &--big {
+        font-size: 96px;
+        line-height: 126px;
+    }
+
+    &--white {
+        color: $color1;
+    }
+
+    &--black {
+        color: $color3;
+    }
+}
+
+.title--intro {
+    margin-bottom: 56px;
+}

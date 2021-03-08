@@ -8,8 +8,17 @@
 
 // Default styles
 
-
+body {
+    font-family: $font1;
+}
 
 // Import blocks 
 
-//@import 'blocks/';
+@import 'blocks/container';
+@import 'blocks/header';
+@import 'blocks/nav';
+@import 'blocks/intro';
+@import 'blocks/subtitle';
+@import 'blocks/title';
+@import 'blocks/btn';
+@import 'blocks/social';

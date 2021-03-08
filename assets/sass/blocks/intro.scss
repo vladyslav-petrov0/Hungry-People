@@ -1,0 +1,139 @@
+.intro {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    z-index: 10;
+
+    min-height: 100vh;
+    padding-top: 100px;
+
+    background: url('/assets/img/header/bg.jpg') center no-repeat;
+    background-size: cover;
+
+    &:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 11;
+
+        content: '';
+        width: 100%;
+        height: 100%;
+
+        background-color: $color3;
+        opacity: 0.6;
+    }
+}
+
+.intro__body {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 25px;
+}
+
+.intro__btns {
+    display: flex;
+    justify-content: center;
+}
+
+.intro__content {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    flex: 1;
+
+    width: 100%;
+    max-width: 851px;
+
+    border-left: 1px solid $colorSec3;
+    border-right: 1px solid $colorSec3;
+
+    &:after {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        height: 86%;
+        width: 1px;
+
+        background-color: $colorSec3;
+    }
+}
+
+.intro__ex-text {
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    writing-mode: vertical-lr;
+    transform: translateY(-50%) rotate(180deg);
+
+    @include text($font1, normal, bold);
+    font-size: 12px;
+    line-height: 12px;
+
+    text-align: center;
+    color: $color1;
+}
+
+.intro__arrow-down {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    bottom: 13.5%;
+    left: 50%;
+    z-index: 999;
+
+    transform: translateX(-50%);
+
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    background-color: $color1;
+
+    cursor: pointer;
+
+    svg {
+        height: 17px;
+        width: 17px;
+
+        transition: transform 0.4s ease;
+    }
+
+    &:before {
+        position: absolute;
+        content: '';
+
+        bottom: -10px;
+        left: -10px;
+
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+
+        border: 1px solid $colorSec3;
+    }
+
+    &:hover {
+        svg {
+            transform: translateY(3px);
+        }
+    }
+}

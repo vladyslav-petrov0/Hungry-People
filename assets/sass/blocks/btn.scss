@@ -1,0 +1,29 @@
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 200px;
+    height: 60px;
+
+    @include text($font1, normal, bold);
+    font-size: 12px;
+    line-height: 20px;
+
+    color: $color1;
+    border-radius: $borderRad1;
+
+    &--yellow {
+        background-color: $color2;
+    }
+
+    &--transparent {
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+}
+
+.btn--intro {
+    &:first-child {
+        margin-right: 40px;
+    }
+}

@@ -1,0 +1,22 @@
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
+    width: 100%;
+
+    @include text($font1, normal, bold);
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.header__logo {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+
+    margin-left: -75px;
+
+    @include noSelect;
+}

@@ -1,0 +1,21 @@
+.container {
+    width: 100%;
+    max-width: 1320px;
+
+    margin: 0 auto;
+    padding: 0 20px;
+
+    &--intro {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        flex: 1;
+
+        height: 100%;
+
+        position: relative;
+        z-index: 100;
+    }
+}

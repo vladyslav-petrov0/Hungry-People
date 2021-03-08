@@ -1,0 +1,36 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav__sec {
+    display: flex;
+
+    border-bottom: 1px solid $colorSec3;
+
+    li {
+        display: flex;
+
+        width: 133px;
+        height: 100px;
+    }
+
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        height: 100%;
+
+        text-transform: uppercase;
+
+        transition: color 0.4s ease, background 0.4s ease;
+        color: $color1;
+
+        &:hover {
+            color: $color3;
+            background: rgba(255, 255, 255, 0.8);
+        }
+    }
+}
