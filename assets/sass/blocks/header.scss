@@ -12,11 +12,31 @@
 }
 
 .header__logo {
-    position: absolute;
-    top: 25px;
-    left: 50%;
+    height: 100px;
+    margin: 0 60px;
 
-    margin-left: -75px;
+    transform: translateY(50px) scale(1.5);
 
     @include noSelect;
+
+    @include media(1320px) {
+        height: 90px;
+        transform: translateY(47px) scale(1.5);
+    }
+
+    @include media(1100px) {
+        height: 80px;
+        transform: translateY(40px) scale(1.5);
+        margin: 0 50px;
+    }
+
+    @include media(950px) {
+        height: 70px;
+        transform: translateY(36px) scale(1.5);
+    }
+
+    @include media(850px) {
+        height: 60px;
+        transform: translateY(30px) scale(1.5);
+    }
 }

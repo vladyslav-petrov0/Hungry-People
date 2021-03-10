@@ -1,6 +1,6 @@
 .nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .nav__sec {
@@ -13,6 +13,26 @@
 
         width: 133px;
         height: 100px;
+
+        @include media(1320px) {
+            width: 100px;
+            height: 90px;
+        }
+
+        @include media(1100px) {
+            width: 90px;
+            height: 80px;
+        }
+
+        @include media(950px) {
+            width: 80px;
+            height: 70px;
+        }
+
+        @include media(850px) {
+            width: 70px;
+            height: 60px;
+        }
     }
 
     a {

@@ -18,7 +18,22 @@
     }
 
     &--transparent {
+        position: relative;
+        overflow: hidden;
+
+        backface-visibility: hidden;
+        
         border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    @include media(1100px) {
+        width: 150px;
+        height: 50px;
+    }
+
+    @include media(950px) {
+        width: 125px;
+        height: 45px;
     }
 }
 

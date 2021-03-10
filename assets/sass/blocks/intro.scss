@@ -24,6 +24,22 @@
         background-color: $color3;
         opacity: 0.6;
     }
+
+    @include media(1320px) {
+        padding-top: 90px;
+    }
+
+    @include media(1100px) {
+        padding-top: 80px;
+    }
+
+    @include media(950px) {
+        padding-top: 70px;
+    }
+
+    @include media(850px) {
+        padding-top: 60px;
+    }
 }
 
 .intro__body {
@@ -53,8 +69,9 @@
 
     flex: 1;
 
-    width: 100%;
     max-width: 851px;
+
+    padding: 0 25px;
 
     border-left: 1px solid $colorSec3;
     border-right: 1px solid $colorSec3;
@@ -71,6 +88,10 @@
         width: 1px;
 
         background-color: $colorSec3;
+
+        @include media(1100px) {
+            height: 88%;
+        }
     }
 }
 
@@ -88,6 +109,11 @@
 
     text-align: center;
     color: $color1;
+
+    @include media(950px) {
+        font-size: 11px;
+        line-height: 11px;
+    }
 }
 
 .intro__arrow-down {
@@ -115,6 +141,11 @@
         width: 17px;
 
         transition: transform 0.4s ease;
+
+        @include media(950px) {
+            height: 15px;
+            width: 15px;
+        }
     }
 
     &:before {
@@ -129,11 +160,24 @@
         border-radius: 50%;
 
         border: 1px solid $colorSec3;
+
+        @include media(950px) {
+            width: 45px;
+            height: 45px;
+
+            bottom: -7.5px;
+            left: -7.5px;
+        }
     }
 
     &:hover {
         svg {
             transform: translateY(3px);
         }
+    }
+
+    @include media(950px) {
+        width: 30px;
+        height: 30px;
     }
 }
