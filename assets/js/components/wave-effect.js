@@ -2,17 +2,23 @@ const btnWave = () => {
     const waveTransition = parsF(styles(qSel('.wave-effect--template')).transitionDuration) * 1000;
     const btns = qSelA('.btn--waved');
 
+    let timerSeconds = 0;
+
     for (let btnItem of btns) {
         setWaveToBtn(btnItem);
     };
 
     function setWaveToBtn(btn) {
         btn.addEventListener('mousedown', (e) => {
-            let counter = 0;
-    
-            setTimeout(() => {
-                counter = 1;
-            }, waveTransition);
+            
+            let btnTimer = setTimeout(function timePlus() {
+
+                if (timerSeconds >= 700) clearTimeout(btnTimer);
+
+                timerSeconds += 100;
+                btnTimer = setTimeout(timePlus, 100);
+
+            }, 100);
     
             const wave = document.createElement('span');
             wave.classList.add('wave-effect');
@@ -35,18 +41,18 @@ const btnWave = () => {
     
             function removingWave(event) {
                 btn.addEventListener(event, () => {
-                
+
+                    clearTimeout(btnTimer);
+
                     const promise = new Promise((res) => {
-        
-                        if (counter == 1) {
+
+                        setTimeout(() => {
                             opacityDrop(res);
-                        } else {
-                            setTimeout(() => {
-                                opacityDrop(res);
-                            }, waveTransition / 1.5);
-                        }
+                        }, waveTransition - timerSeconds);
                         
                     }).then(() => {
+
+                        timerSeconds = 0;
         
                         setTimeout(() => {
                             wave.remove();
@@ -73,62 +79,72 @@ const btnWave = () => {
 
 /* ========================================================================================== */
 
-    // const btnWave = () => {
-    //     const waveTransition = parsF(styles(qSel('.wave-effect--template')).transitionDuration) * 1000;
-    //     const btnItem = qSel('.btn--transparent');
+// const btnWave = () => {
+//     const waveTransition = parsF(styles(qSel('.wave-effect--template')).transitionDuration) * 1000;
+//     const btns = qSelA('.btn--waved');
+
+//     for (let btnItem of btns) {
+//         setWaveToBtn(btnItem);
+//     };
+
+//     function setWaveToBtn(btn) {
+//         btn.addEventListener('mousedown', (e) => {
+//             let counter = 0;
     
-    //     btnItem.addEventListener('mousedown', (e) => {
-    //         let counter = 0;
+//             setTimeout(() => {
+//                 counter = 1;
+//             }, waveTransition);
     
-    //         setTimeout(() => {
-    //             counter = 1;
-    //         }, waveTransition);
+//             const wave = document.createElement('span');
+//             wave.classList.add('wave-effect');
+//             btn.append(wave);
     
-    //         const wave = document.createElement('span');
-    //         wave.classList.add('wave-effect');
-    //         btnItem.append(wave);
+//             const btnParams = parsF(styles(btn).width) + 'px';
     
-    //         const btnParams = parsF(styles(btnItem).width) + 'px';
+//             wave.style.width = btnParams;
+//             wave.style.height = btnParams;
     
-    //         wave.style.width = btnParams;
-    //         wave.style.height = btnParams;
+//             const waveParams = styles(wave);
     
-    //         const waveParams = styles(wave);
+//             wave.style.top = `${e.offsetY - (parsF(waveParams.height) / 2)}px`;
+//             wave.style.left = `${e.offsetX - (parsF(waveParams.width) / 2)}px`;
     
-    //         wave.style.top = `${e.offsetY - (parsF(waveParams.height) / 2)}px`;
-    //         wave.style.left = `${e.offsetX - (parsF(waveParams.width) / 2)}px`;
+//             wave.classList.add('active');
     
-    //         wave.classList.add('active');
+//             removingWave('mouseup');
+//             removingWave('mouseout');
     
-    //         removingWave('mouseup');
-    //         removingWave('mouseout');
-    
-    //         function removingWave(event) {
-    //             btnItem.addEventListener(event, () => {
+//             function removingWave(event) {
+//                 btn.addEventListener(event, () => {
                 
-    //                 const promise = new Promise((resolve) => {
+//                     const promise = new Promise((res) => {
         
-    //                     if (counter == 1) {
-    //                         opacityDrop();
-    //                     } else {
-    //                         setTimeout(opacityDrop, waveTransition / 1.5);
-    //                     }
+//                         if (counter == 1) {
+//                             opacityDrop(res);
+//                         } else {
+//                             setTimeout(() => {
+//                                 opacityDrop(res);
+//                             }, waveTransition / 1.5);
+//                         }
                         
-    //                 }).then(() => {
+//                     }).then(() => {
         
-    //                     setTimeout(() => {
-    //                         wave.remove();
-    //                     }, waveTransition);
+//                         setTimeout(() => {
+//                             wave.remove();
+//                         }, waveTransition);
         
-    //                 });
+//                     });
         
-    //             }); // mouseup
-    //         } // removingWave(event)
+//                 }); // mouseup
+//             } // removingWave(event)
     
-    //         function opacityDrop() {
-    //             wave.style.opacity = '0';
-    //             resolve();
-    //         }
+//             function opacityDrop(res) {
+//                 wave.style.opacity = '0';
+//                 res();
+//             }
     
-    //     }); // mousedown
-    // }; // end
+//         }); // mousedown
+//     }
+
+    
+// }; // end
