@@ -20,12 +20,19 @@ function parsF(el) {
     return parseFloat(el);
 }
 
+window.addEventListener('load', (e) => {
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+    }, 50);
+});
 
 // == COMPONENTS == 
 
 //= components/wave-effect.js
+//= components/page-scroll.js
 
 // == MAIN CODE ==
 
 btnWave();
+pageScroll();
 

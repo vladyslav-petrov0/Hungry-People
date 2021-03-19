@@ -23,3 +23,11 @@
         line-height: 10px;
     }
 }
+
+.subtitle--section {
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    
+    transform: translateX(-50%);
+}

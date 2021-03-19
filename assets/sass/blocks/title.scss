@@ -44,7 +44,7 @@
 
     &:after {
         position: absolute;
-        bottom: -40px;
+        bottom: -35px;
         left: 50%;
 
         transform: translateX(-50%);
@@ -57,15 +57,15 @@
         background-color: $color2;
 
         @include media(1320px) {
-            bottom: -35px;
-        }
-
-        @include media(1100px) {
             bottom: -30px;
         }
 
+        @include media(1100px) {
+            bottom: -25px;
+        }
+
         @include media(950px) {
-            bottom: -23px;
+            bottom: -20px;
         }
     }
 }
@@ -88,4 +88,8 @@
 
 .title--section {
     margin-bottom: 30px;
+
+    &:after {
+        bottom: -18px;
+    }
 }

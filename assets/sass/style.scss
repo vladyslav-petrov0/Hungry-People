@@ -10,14 +10,18 @@
 
 body {
     font-family: $font1;
+
+    overflow: hidden;
 }
 
 // Import blocks 
 
+@import 'blocks/scroll-wrapper';
 @import 'blocks/container';
 @import 'blocks/header';
 @import 'blocks/nav';
 @import 'blocks/intro';
+@import 'blocks/arrow-down';
 @import 'blocks/subtitle';
 @import 'blocks/title';
 @import 'blocks/btn';
@@ -25,3 +29,6 @@ body {
 @import 'blocks/wave-effect';
 @import 'blocks/section';
 @import 'blocks/text';
+@import 'blocks/date';
+@import 'blocks/form';
+@import 'blocks/select';

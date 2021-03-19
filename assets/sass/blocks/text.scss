@@ -3,7 +3,6 @@
     font-size: 14px;
     line-height: 24px;
 
-    color: $color3;
 
     &--head {
         font-weight: bold;
@@ -11,5 +10,17 @@
         line-height: 28px;
 
         margin-bottom: 25px;
+    }
+
+    &--black {
+        color: $color3;
+    }
+
+    &--white {
+        color: $color1;
+
+        p {
+            opacity: 0.9;
+        }
     }
 }

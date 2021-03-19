@@ -23,4 +23,11 @@
 .container--section {
     display: flex;
     align-items: center;
+
+    position: relative;
+    z-index: 100;
+}
+
+.container--master {
+    justify-content: flex-end;
 }
