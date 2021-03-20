@@ -75,6 +75,30 @@ $filter2: drop-shadow(0px 0px 50px #000000);
         }
 
         border-radius: $borderRad1;
+
+        @include media(1200px) {
+            width: 200px;
+            height: 200px;
+
+            @if $param == left {
+                left: -100px;
+            } @else if $param == right {
+                right: -100px;
+            }
+        }
+
+        @include media(1024px) {
+            width: 125px;
+            height: 125px;
+
+            border: 13px solid $color2;
+
+            @if $param == left {
+                left: -60px;
+            } @else if $param == right {
+                right: -60px;
+            }
+        }
     }
 }
 

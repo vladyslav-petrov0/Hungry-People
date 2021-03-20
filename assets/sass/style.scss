@@ -12,6 +12,10 @@ body {
     font-family: $font1;
 
     overflow: hidden;
+
+    @include media(1024px) {
+        overflow: visible;
+    }
 }
 
 // Import blocks 
@@ -20,6 +24,7 @@ body {
 @import 'blocks/container';
 @import 'blocks/header';
 @import 'blocks/nav';
+@import 'blocks/burger';
 @import 'blocks/intro';
 @import 'blocks/arrow-down';
 @import 'blocks/subtitle';

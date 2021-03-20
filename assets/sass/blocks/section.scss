@@ -3,6 +3,36 @@
     max-width: 600px;
 
     text-align: center;
+
+    &--white {
+        margin-right: 90px;
+
+        @include media(1200px) {
+            margin-right: 65px;
+        }
+
+        @include media(1024px) {
+            order:2;
+        }
+    }
+
+    &--black {
+        margin-left: 90px;
+
+        @include media(1200px) {
+            margin-left: 65px;
+        }
+    }
+
+    &--white, &--black {
+        @include media(1024px) {
+            margin: 50px 0 0 0;
+        }
+    }
+
+    @include media(1200px) {
+        max-width: 500px;
+    }
 }
 
 .section {
@@ -14,16 +44,14 @@
     min-height: 100vh;
     padding: 100px 0;
 
-    &--black {
-        .section__content {
-            margin-left: 90px;
-        }
+    @include media(1320px) {
+        overflow-x: hidden;
     }
 
-    &--white {
-        .section__content {
-            margin-right: 90px;
-        }
+    @include media(1024px) {
+        min-height: 0;
+
+        padding: 100px 0;
     }
 }
 
@@ -45,22 +73,34 @@
     border-radius: $borderRad1;
     filter: $filter1;
 
-    background-size: cover;
+    @include media(1200px) {
+        height: 0;
+        padding-bottom: 40%;
+    }
+
+    @include media(1024px) {
+        width: 300px;
+        height: 250px;
+
+        padding-bottom: 0;
+    }
+
+    & img {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        object-position: 50% 50%;
+
+        border-radius: $borderRad1;
+    }
 }
 
 .illustration {
-    &--about {
-        background: url('/assets/img/about/1.jpg') no-repeat;
-    }
-
-    &--master {
-        background: url('/assets/img/master/1.jpg') no-repeat;
-    }
-
-    &--book {
-        background: url('/assets/img/book/bg.jpg') no-repeat;
-    }
-
     &--right {
         @include square(right);
     }

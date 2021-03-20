@@ -20,12 +20,24 @@
     }
 }
 
+.container--header {
+    position: relative;
+}
+
 .container--section {
     display: flex;
     align-items: center;
 
     position: relative;
     z-index: 100;
+
+    @include media(1200px) {
+        justify-content: center;
+    }
+
+    @include media(1024px) {
+        flex-direction: column;
+    }
 }
 
 .container--master {

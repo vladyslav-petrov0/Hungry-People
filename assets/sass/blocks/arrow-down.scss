@@ -25,6 +25,10 @@
         bottom: 8%;
         left: 50%;
         background-color: $color2;
+
+        @include media(1024px) {
+            display: none;
+        }
     }
 
     &--section svg {

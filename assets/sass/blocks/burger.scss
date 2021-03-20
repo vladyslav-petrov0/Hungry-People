@@ -1,0 +1,28 @@
+.burger {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 45px;
+    height: 18px;
+
+    &:before, &:after {
+        position: absolute;
+        left: 0;
+
+        content: '';
+
+        width: 100%;
+        height: 5px;
+
+        background-color: $color1;
+    }
+
+    &:before {
+        top: 0;
+    }
+
+    &:after {
+        bottom: 0;
+    }
+}

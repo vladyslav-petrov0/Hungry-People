@@ -8,6 +8,7 @@
     line-height: 20px;
 
     height: 60px;
+    width: 200px;
 
     color: $color1;
     border-radius: $borderRad1;
@@ -32,10 +33,13 @@
 }
 
 .btn--intro {
-    width: 200px;
 
     &:first-child {
         margin-right: 40px;
+    }
+
+    @include media(950px) {
+        width: 125px;
     }
 }
 
