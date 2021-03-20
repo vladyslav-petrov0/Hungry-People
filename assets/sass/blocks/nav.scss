@@ -1,6 +1,10 @@
 .nav {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+
+    @include media(950px) {
+        display: none;
+    }
 }
 
 .nav__sec {
@@ -22,16 +26,6 @@
         @include media(1100px) {
             width: 90px;
             height: 80px;
-        }
-
-        @include media(950px) {
-            width: 80px;
-            height: 70px;
-        }
-
-        @include media(850px) {
-            width: 70px;
-            height: 60px;
         }
     }
 

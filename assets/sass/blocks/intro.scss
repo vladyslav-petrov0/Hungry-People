@@ -18,14 +18,6 @@
     @include media(1100px) {
         padding-top: 80px;
     }
-
-    @include media(950px) {
-        padding-top: 70px;
-    }
-
-    @include media(850px) {
-        padding-top: 60px;
-    }
 }
 
 .intro__body {

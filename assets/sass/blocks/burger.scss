@@ -1,7 +1,15 @@
 .burger {
-    position: absolute;
+    display: none;
+
+    @include media(950px) {
+        display: block;
+    }
+}
+
+.burger__stick {
+    position: relative;
     top: 0;
-    right: 0;
+    left: 0;
 
     width: 45px;
     height: 18px;

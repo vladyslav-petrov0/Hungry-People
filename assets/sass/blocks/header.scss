@@ -9,34 +9,78 @@
     @include text($font1, normal, bold);
     font-size: 12px;
     line-height: 18px;
+
+    @include media(950px) {
+        height: 80px;
+    }
 }
 
-.header__logo {
-    height: 100px;
-    margin: 0 60px;
+.header__body {
+    position: relative;
 
-    transform: translateY(50px) scale(1.5);
+    width: 100%;
 
-    @include noSelect;
+    &:before, &:after {
+        display: none;
+
+        position: absolute;
+        bottom: 0;
+
+        content: '';
+
+        height: 1px;
+        width: 39%;
+        background-color: hsla(0,0%,100%,.2);
+
+        @include media(950px) {
+            display: block;
+        }
+    }
+
+    &:before {
+        left: 10px;
+    }
+
+    &:after {
+        right: 10px;
+    }
 
     @include media(1320px) {
-        height: 90px;
-        transform: translateY(47px) scale(1.5);
+        max-width: 1010px;
+        margin: 0 auto;
     }
 
     @include media(1100px) {
-        height: 80px;
-        transform: translateY(40px) scale(1.5);
-        margin: 0 50px;
+        max-width: 900px;
     }
 
     @include media(950px) {
-        height: 70px;
-        transform: translateY(36px) scale(1.5);
+        height: 80px;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        padding-right: 10px;
+    }
+}
+
+.header__logo {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+
+    transform: translateX(-50%);
+    
+    @include noSelect;
+
+    @include media(1320px) {
+        transform: translateX(-50%) scale(0.9);
+        top: 15px;
     }
 
-    @include media(850px) {
-        height: 60px;
-        transform: translateY(30px) scale(1.5);
+    @include media(1100px) {
+        top: 5px;
+        transform: translateX(-50%) scale(0.8);
     }
 }
