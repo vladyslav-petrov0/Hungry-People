@@ -12,6 +12,14 @@
 
     @include media(950px) {
         height: 80px;
+
+        font-size: 28px;
+        line-height: 28px;
+    }
+
+    @include media(425px) {
+        font-size: 22px;
+        line-height: 22px;
     }
 }
 
@@ -43,6 +51,7 @@
 
     &:after {
         right: 10px;
+        z-index: -1;
     }
 
     @include media(1320px) {
@@ -82,5 +91,11 @@
     @include media(1100px) {
         top: 5px;
         transform: translateX(-50%) scale(0.8);
+    }
+
+    &.showed {
+        @include media(950px) {
+            z-index: 999;
+        }
     }
 }

@@ -23,10 +23,10 @@
             line-height: 70px;
         }
 
-        @include media(950px) {
-            font-size: 50px;
-            line-height: 60px;
-        }
+        // @include media(950px) {
+        //     font-size: 50px;
+        //     line-height: 60px;
+        // }
 
         @include media(850px) {
             font-size: 46px;
@@ -64,7 +64,7 @@
             bottom: -25px;
         }
 
-        @include media(950px) {
+        @include media(850px) {
             bottom: -20px;
         }
     }
@@ -81,7 +81,7 @@
         margin-bottom: 50px;
     }
 
-    @include media(950px) {
+    @include media(850px) {
         margin-bottom: 40px;
     }
 }
@@ -92,4 +92,8 @@
     &:after {
         bottom: -18px;
     }
+}
+
+.title--book {
+    margin-bottom: 40px;
 }

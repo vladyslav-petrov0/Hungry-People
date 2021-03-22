@@ -14,8 +14,7 @@
     width: 277px;
     height: 60px;
 
-    margin: 0 10px 10px 0;
-    padding: 20px 15px;
+    padding: 25px 15px 20px 15px;
     
     display: flex;
     align-items: center;
@@ -23,8 +22,37 @@
     color: rgba(51, 51, 51, 0.5);
     background-color: $colorSec2;
     border-radius: $borderRad1;
+}
+
+.form__section {
+    position: relative;
+
+    margin: 0 10px 10px 0;
 
     &:nth-child(even) {
         margin-right: 0;
+    }
+}
+
+.form__label {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+
+    @include text($font1, normal, normal);
+    font-size: 14px;
+    line-height: 19px;
+
+    color: rgba(51, 51, 51, 0.5);
+
+    transition: all 0.2s ease;
+
+    @include noSelect;
+
+    &.chosen {
+        transform: translateY(-20px);
+
+        font-size: 12px;
+        line-height: 19px;
     }
 }

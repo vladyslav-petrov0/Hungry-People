@@ -1,18 +1,16 @@
 .burger {
-    display: none;
-
-    @include media(950px) {
-        display: block;
-    }
-}
-
-.burger__stick {
     position: relative;
     top: 0;
     left: 0;
 
+    z-index: 999;
+
+    display: none;
+
     width: 45px;
-    height: 18px;
+    height: 35px;
+
+    cursor: pointer;
 
     &:before, &:after {
         position: absolute;
@@ -24,13 +22,30 @@
         height: 5px;
 
         background-color: $color1;
+
+        transition: all 0.5s ease;
     }
 
     &:before {
-        top: 0;
+        top: 10px;
     }
 
     &:after {
-        bottom: 0;
+        bottom: 5px;
     }
+
+    @include media(950px) {
+        display: block;
+    }
+}
+
+.burger--active:before {
+    transform: rotate(45deg);
+    top: 30px;
+}
+
+
+.burger--active:after {
+    transform: rotate(-45deg);
+    bottom: -1px;
 }

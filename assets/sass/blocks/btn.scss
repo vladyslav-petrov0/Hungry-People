@@ -26,7 +26,7 @@
         height: 50px;
     }
 
-    @include media(950px) {
+    @include media(850px) {
         width: 125px;
         height: 45px;
     }
@@ -38,7 +38,7 @@
         margin-right: 40px;
     }
 
-    @include media(950px) {
+    @include media(850px) {
         width: 125px;
     }
 }

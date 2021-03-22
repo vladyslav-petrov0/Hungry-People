@@ -1,11 +1,11 @@
 // == FUNCTIONS ==
 
-function qSel(el) {
-    return document.querySelector(el);
+function qSel(el, node = document) {
+    return node.querySelector(el);
 }
 
-function qSelA(el) {
-    return document.querySelectorAll(el);
+function qSelA(el, node = document) {
+    return node.querySelectorAll(el);
 }
 
 function styles(el) {
@@ -30,9 +30,13 @@ window.addEventListener('load', (e) => {
 
 //= components/wave-effect.js
 //= components/page-scroll.js
+//= components/burger-menu.js
+//= components/form-anim.js
 
 // == MAIN CODE ==
 
 btnWave();
 pageScroll();
+burgerMenu();
+formAnim();
 

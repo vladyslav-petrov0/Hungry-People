@@ -14,13 +14,9 @@
         line-height: 12px;
     }
 
-    @include media(950px) {
-        font-size: 10px;
-        line-height: 11px;
-    }
-
     @include media(850px) {
         line-height: 10px;
+        font-size: 10px;
     }
 }
 

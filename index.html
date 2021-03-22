@@ -41,7 +41,6 @@
                     </div>
 
                     <div class="burger">
-                        <div class="burger__stick"></div>
                     </div>
 
                 </div>
@@ -199,18 +198,29 @@
                 <div class="container  container--section">
     
                     <div class="section__content  section__content--white">
-                        <h2 class="title  title--section">book a table</h2>
+                        <h2 class="title  title--section  title--book">book a table</h2>
     
                         <form action="#" class="form">
-                            <input type="text" class="form__elem">
-                            <input type="text" class="form__elem">
-                            <input type="text" class="form__elem">
+                            <span class="form__section">
+                                <label for='name' class="form__label">Name</label>
+                                <input type="text" class="form__elem" id='name'>
+                            </span>
+
+                            <span class="form__section">
+                                <input type="text" id="email" class="form__elem">
+                                <label for='email' class="form__label">Email</label>
+                            </span>
+
+                            <span class="form__section">
+                                <input type="text" id="phone" class="form__elem">
+                                <label for='phone' class="form__label">Phone</label>
+                            </span>
+
+                            <div class="select  form__elem  form__section"></div>
     
-                            <div class="select  form__elem"></div>
+                            <div class="date  form__elem  form__section"></div>
     
-                            <div class="date  form__elem"></div>
-    
-                            <div class="select  select--time  form__elem">
+                            <div class="select  select--time  form__elem  form__section">
     
                             </div>
     

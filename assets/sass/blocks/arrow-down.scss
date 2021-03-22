@@ -41,7 +41,7 @@
 
         transition: transform 0.4s ease;
 
-        @include media(950px) {
+        @include media(850px) {
             height: 15px;
             width: 15px;
         }
@@ -60,7 +60,7 @@
 
         border: 1px solid $colorSec3;
 
-        @include media(950px) {
+        @include media(850px) {
             width: 45px;
             height: 45px;
 
@@ -80,7 +80,7 @@
         }
     }
 
-    @include media(950px) {
+    @include media(850px) {
         width: 30px;
         height: 30px;
     }
