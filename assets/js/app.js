@@ -20,6 +20,10 @@ function parsF(el) {
     return parseFloat(el);
 }
 
+function getElemTransition(el) {
+    return parsF(styles(el).transitionDuration);
+}
+
 window.addEventListener('load', (e) => {
     setTimeout(() => {
         window.scrollTo(0, 0);

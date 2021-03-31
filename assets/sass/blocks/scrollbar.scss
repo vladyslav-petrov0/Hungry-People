@@ -1,0 +1,30 @@
+.scrollbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    height: 100%;
+}
+
+.scrollbar__track {
+    height: 100%;
+    width: 5px;
+}
+
+.scrollbar__elem {
+    width: 5px;
+    height: 50px;
+
+    border-radius: 20px;
+
+    background-color: $color2;
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+    display: none;
+
+    &.active {
+        display: block;
+        opacity: 1;
+    }
+}

@@ -24,6 +24,10 @@
     color: $color3;
     background-color: $colorSec2;
     border-radius: $borderRad1;
+
+    @include media(1200px) {
+        width: 160px;
+    }
 }
 
 .form__section {
@@ -73,7 +77,7 @@
     @include noSelect;
 
     &.chosen {
-        transform: translateY(-20px);
+        transform: translateY(-17px);
 
         font-size: 12px;
         line-height: 19px;

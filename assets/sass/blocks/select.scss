@@ -1,6 +1,8 @@
 .select {
     padding: 20px 15px;
 
+    cursor: pointer;
+
     color: rgba(51, 51, 51, 0.5);
     
     svg {
@@ -27,21 +29,25 @@
 
 .select__menu {
     position: absolute;
-    top: 60px;
+    top: 57px;
     left: 0;
 
     z-index: 999;
 
     width: 100%;
     height: 0;
-    max-height: 200px;
 
     border-radius: $borderRad1;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
     overflow: hidden;
 
     user-select: none;
+    cursor: pointer;
 
     transition: height .5s ease;
+    background-color: $colorSec2;
 
     ul {
         overflow: hidden;
@@ -53,10 +59,66 @@
         text-align: left;
 
         background-color: $colorSec2;
-        transition: background-color 0.3s ease;
+        transition: background-color .3s ease;
 
         &:hover {
             background-color: #D5D5D5;
         }
     }
+
+    &.extended {
+        height: 195px;
+    }
 }
+
+.select__hidden {
+    display: none;
+}
+
+.select_wrapper {
+    position: relative;
+}
+
+
+// .select__menu {
+//     position: absolute;
+//     top: 57px;
+//     left: 0;
+
+//     z-index: 999;
+
+//     width: 100%;
+//     height: 0;
+
+//     border-radius: $borderRad1;
+//     border-top-left-radius: 0;
+//     border-top-right-radius: 0;
+
+//     overflow: hidden;
+
+//     user-select: none;
+//     cursor: pointer;
+
+//     transition: height .5s ease;
+
+//     ul {
+//         overflow: hidden;
+//     }
+
+//     li {
+//         padding: 10px 15px;
+
+//         text-align: left;
+
+//         background-color: $colorSec2;
+//         transition: background-color .3s ease;
+
+//         &:hover {
+//             background-color: #D5D5D5;
+//         }
+//     }
+
+//     &.extended {
+//         height: 195px;
+//     }
+// }

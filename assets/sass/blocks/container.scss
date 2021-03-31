@@ -42,4 +42,8 @@
 
 .container--master {
     justify-content: flex-end;
+
+    @include media(1200px) {
+        justify-content: center;
+    }
 }
