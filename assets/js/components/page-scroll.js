@@ -9,6 +9,19 @@ const pageScroll = () => {
         const sectionCoordsLength = sectionCoords.length - 1;
         let currentPos = 0,
             counter = 0;
+
+        const noScrollElems = qSelA('.select__menu');
+        for (let item of noScrollElems) {
+            item.addEventListener('mouseover', () => {
+                counter = 1;
+
+                item.addEventListener('mouseout', function outOfElem() {
+                    counter = 0;
+
+                    item.removeEventListener('mouseout', outOfElem);
+                });
+            });
+        }
         
         for (let item of qSelA('.arrow-scroll')) scrollByButton(item);
 
@@ -50,7 +63,7 @@ const pageScroll = () => {
         function getCoords(el) {
             const rect = el.getBoundingClientRect();
         
-            return rect.top + pageYOffset - (window.innerHeight - rect.height);
+            return rect.top + pageYOffset;
         }
 
         function reloadCounter() {

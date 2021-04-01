@@ -2,6 +2,7 @@
     padding: 20px 15px;
 
     cursor: pointer;
+    user-select: none;
 
     color: rgba(51, 51, 51, 0.5);
     
@@ -25,6 +26,16 @@
     &.extended svg {
         transform: translateY(-50%) rotate(-180deg);
     }
+
+    span.selected {
+        color: $color3;
+    }
+
+    &--people {
+        .select__menu {
+            z-index: 1000;
+        }
+    }
 }
 
 .select__menu {
@@ -36,6 +47,7 @@
 
     width: 100%;
     height: 0;
+    max-height: 195px;
 
     border-radius: $borderRad1;
     border-top-left-radius: 0;
@@ -51,12 +63,15 @@
 
     ul {
         overflow: hidden;
+
+        user-select: none;
     }
 
     li {
         padding: 10px 15px;
 
         text-align: left;
+        user-select: none;
 
         background-color: $colorSec2;
         transition: background-color .3s ease;
@@ -77,48 +92,6 @@
 
 .select_wrapper {
     position: relative;
+
+    user-select: none;
 }
-
-
-// .select__menu {
-//     position: absolute;
-//     top: 57px;
-//     left: 0;
-
-//     z-index: 999;
-
-//     width: 100%;
-//     height: 0;
-
-//     border-radius: $borderRad1;
-//     border-top-left-radius: 0;
-//     border-top-right-radius: 0;
-
-//     overflow: hidden;
-
-//     user-select: none;
-//     cursor: pointer;
-
-//     transition: height .5s ease;
-
-//     ul {
-//         overflow: hidden;
-//     }
-
-//     li {
-//         padding: 10px 15px;
-
-//         text-align: left;
-
-//         background-color: $colorSec2;
-//         transition: background-color .3s ease;
-
-//         &:hover {
-//             background-color: #D5D5D5;
-//         }
-//     }
-
-//     &.extended {
-//         height: 195px;
-//     }
-// }

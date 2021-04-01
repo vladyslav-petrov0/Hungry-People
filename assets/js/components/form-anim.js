@@ -25,11 +25,10 @@ const formAnim = () => {
     const selectItems = qSelA('.select');
 
     for (let item of selectItems) {
-        item.addEventListener('click', (e) => {
+        
+        item.addEventListener('mousedown', (e) => {
 
-            const selectMenu = qSel('.select__menu', item),
-                menuList = qSelA('li', item),
-                scrollElem = qSel('ul', item);
+            const selectMenu = qSel('.select__menu', item);
 
             if (e.target == item || e.target.closest('.select') && !e.target.closest('.select__menu')) {
 
@@ -39,8 +38,26 @@ const formAnim = () => {
 
                     selectMenu.classList.add('extended');
                     item.classList.add('extended');
+                    
+                    closeOtherSelect();
 
-                    document.addEventListener('click', function clickOut(e) {
+                    const scrollElem = qSel('ul', item);
+
+                    if (parsF(styles(selectMenu).maxHeight) < getElemHeight(scrollElem)) {
+                        
+                        scrollbarElem = qSel('.scrollbar__elem', item);
+                        setTimeout(() => {
+
+                            scrollbarElem.style.display = 'block';
+                            
+                            setTimeout(() => {
+                                scrollbarElem.classList.add('active');
+                            }, 50)
+
+                        }, 500);
+                    }
+
+                    document.addEventListener('mousedown', function clickOut(e) {
                         if (e.target != item && !e.target.closest('.select')) {
 
                             closeSelect();
@@ -48,18 +65,34 @@ const formAnim = () => {
                         }
                     });
 
-                    for (let li of menuList) {
+                    for (let li of qSelA('li', item)) {
                 
                         li.addEventListener('click', function selectOption(e) {
                             
                             item.classList.add('selected');
-                            qSel('span', item).innerText = li.innerText;
+
+                            const span = qSel('span', item);
+                            span.innerText = li.innerText;
+                            span.classList.add('selected');
+
                             qSel('select', item).setAttribute('value', li.innerText);
 
                             closeSelect();
                             li.removeEventListener('click', selectOption);
                         });
         
+                    }
+
+                    function closeOtherSelect() {
+
+                        const otherItems = Array.from(selectItems);
+                        otherItems.splice(otherItems.indexOf(item), 1);
+    
+                        for (let otherItem of otherItems) {
+                            otherItem.classList.remove('extended');
+                            qSel('.select__menu', otherItem).classList.remove('extended');
+                        }
+
                     }
 
                 }
@@ -85,11 +118,11 @@ const formAnim = () => {
 
         const scrollbar = this;
 
-        let scrollbarPos = 0;
-        let scrollbarPosLast = e.layerY;
+        let scrollbarPos = 0,
+            scrollbarPosLast = e.layerY;
 
         const selectMenu = this.closest('.select__menu'),
-            selectMenuHeight = parsI(styles(selectMenu).height);
+            selectMenuHeight = getElemHeight(selectMenu);
 
         const scrollElem = qSel('ul', this.closest('.select__wrapper'));
 
@@ -99,21 +132,17 @@ const formAnim = () => {
 
         function startMoving(e) {
 
-            const scrollbarHeight = parsF(styles(scrollbar).height),
+            const scrollbarHeight = getElemHeight(scrollbar),
                 scrollElemHeight = scrollElem.getBoundingClientRect().height - selectMenuHeight,
-                trackHeight = parsI(styles(scrollbar.parentNode).height);
+                trackHeight = getElemHeight(scrollbar.parentNode);
 
-            scrollbarPos = scrollbarPosLast - e.layerY;
-            scrollbar.style.transform = `translateY(${calcCurrentPos() - scrollbarPos}px)`;
+            scrollbarPos = e.layerY - scrollbarPosLast;
+            scrollbar.style.transform = `translateY(${calcCurrentPos() + scrollbarPos}px)`;
             limitPos();
             scrollbarPosLast = e.layerY;
 
             const scrollbarPercent = calcCurrentPos() * 100 / (trackHeight - scrollbarHeight);
             scrollElem.style.transform = `translateY(-${scrollbarPercent * (scrollElemHeight / 100)}px)`;
-
-            document.addEventListener('mouseup', () => {
-                selectMenu.removeEventListener('mousemove', startMoving);
-            });
 
             function calcCurrentPos() {
                 return +scrollbar.style.transform.match(/-*[0-9]+/)[0];
@@ -130,9 +159,15 @@ const formAnim = () => {
             }
         }
 
-        
+        document.addEventListener('mouseup', () => {
+            selectMenu.removeEventListener('mousemove', startMoving);
+        });
         
     }
     
+
+    function getElemHeight(el) {
+        return parsF(styles(el).height);
+    }
 
 }; // end
