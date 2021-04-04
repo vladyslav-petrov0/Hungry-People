@@ -63,8 +63,11 @@
 
     ul {
         overflow: hidden;
-
         user-select: none;
+        
+        &.smooth {
+            transition: transform 0.1s ease;
+        }
     }
 
     li {
@@ -84,6 +87,8 @@
     &.extended {
         height: 195px;
     }
+
+    
 }
 
 .select__hidden {

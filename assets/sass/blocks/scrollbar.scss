@@ -8,6 +8,7 @@
 
 .scrollbar__track {
     height: 100%;
+    max-height: 195px;
 
     width: auto;
 }
@@ -35,5 +36,7 @@
         }
     }
 
-    
+    &.smooth {
+        transition: opacity 0.3s ease, width 0.3s ease, transform 0.1s ease;
+    }
 }
