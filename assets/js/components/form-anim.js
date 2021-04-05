@@ -196,79 +196,62 @@ const formAnim = () => {
     }
 
     
-    const phoneForms = qSelA('.form__elem--phone');
+    const formTemplates = qSelA('.form__elem--template');
 
-    for (let phoneForm of phoneForms) {
+    for (let formItem of formTemplates) {
 
-        const userInput = ['_', '_', '_', '_', '_', '_', '_', '_', '_'];
-        const allowedKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-        let numberTemplate = '+380(__)__-__-___';
+        const userInput = [];
+        const emptyField = '_';
+        let formTemplate;
+        
+        if (formItem.classList.contains('form__elem--phone')) formTemplate = `+380(..)..-..-...`;
+        if (formItem.classList.contains('form__elem--date')) formTemplate = `../..`;
 
-        phoneForm.addEventListener('focus', (e) => {
-            someFunc(e);
+        formTemplate = formTemplate.replace(/[.]/g, emptyField);
+        for (let i = 0; i < formTemplate.match(new RegExp(emptyField, 'g')).length; i++) {
+            userInput.push(emptyField);
+        }
 
-            phoneForm.addEventListener('input', (e) => {
-                console.log(e);
-                someFunc(e);
+        formItem.addEventListener('focus', (e) => {
+            setInputValue();
+            formItem.addEventListener('input', definePhoneNum);
+
+            formItem.addEventListener('blur', () => {
+                formItem.removeEventListener('input', definePhoneNum);
             });
-
         });
 
-        function someFunc(e) {
-            if (allowedKeys.includes(e.data) && userInput.includes('_')) {
-                userInput.splice(userInput.indexOf('_'), 1, e.data);
-            }
+
+        function definePhoneNum(e) {
 
             if (e.data == null) {
-                if (userInput.includes('_')) {
-                    userInput.splice(userInput.indexOf('_') - 1, 1, '_');
+                if (userInput.includes(emptyField)) {
+                    userInput.splice(userInput.indexOf(emptyField) - 1, 1, emptyField);
                 } else {
-                    userInput.splice(userInput.length - 1, 1, '_');
+                    userInput.splice(userInput.length - 1, 1, emptyField);
+                }
+            } else {
+                if (e.data.match(/[0-9]/) && userInput.includes(emptyField)) {
+                    userInput.splice(userInput.indexOf(emptyField), 1, e.data);
                 }
             }
 
-            phoneForm.value = `+380(${userInput[0]}${userInput[1]})${userInput[2]}${userInput[3]}-${userInput[4]}${userInput[5]}-${userInput[6]}${userInput[7]}${userInput[8]}`;
-            console.log(userInput);
+            setInputValue();
+        }
+
+        function setInputValue() {
+            const currentValue = Array.from(formTemplate);
+            let counter = 0;
+
+            currentValue.forEach((item, index, arr) => {
+                if (item == emptyField) {
+                    arr[index] = userInput[counter];
+                    counter++;
+                } 
+            });
+            
+            formItem.value = currentValue.join('');
         }
     }
 
 }; // end
-
-
-// const phoneForms = qSelA('.form__elem--phone');
-
-//     for (let phoneForm of phoneForms) {
-
-//         const userInput = ['_', '_', '_', '_', '_', '_', '_', '_', '_'];
-//         const allowedKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-//         let numberTemplate = '+380(__)__-__-___';
-
-//         phoneForm.addEventListener('focus', (e) => {
-//             phoneForm.addEventListener('keydown', someFunc);
-
-//             phoneForm.addEventListener('input', (e) => {
-//                 console.log(e);
-//                 phoneForm.value = `+380(${userInput[0]}${userInput[1]})${userInput[2]}${userInput[3]}-${userInput[4]}${userInput[5]}-${userInput[6]}${userInput[7]}${userInput[8]}`;
-//             });
-//         });
-
-//         phoneForm.addEventListener('blur', () => {
-//             phoneForm.removeEventListener('keydown', someFunc);
-//         });
-
-//         function someFunc(e) {
-//             if (allowedKeys.includes(e.key) && userInput.includes('_')) {
-//                 userInput.splice(userInput.indexOf('_'), 1, e.key);
-//             }
-
-//             if (e.key == 'Backspace') {
-//                 if (userInput.includes('_')) {
-//                     userInput.splice(userInput.indexOf('_') - 1, 1, '_');
-//                 } else {
-//                     userInput.splice(userInput.length - 1, 1, '_');
-//                 }
-//             }
-
-//             console.log(userInput);
-//         }
-//     }
