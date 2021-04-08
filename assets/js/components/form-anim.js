@@ -70,8 +70,9 @@ const formAnim = () => {
                         li.addEventListener('click', function selectOption(e) {
                             
                             item.classList.add('selected');
+                            qSel('.form__label', item).classList.add('chosen');
 
-                            const span = qSel('span', item);
+                            const span = qSel('.select__current-value', item);
                             span.innerText = li.innerText;
                             span.classList.add('selected');
 
@@ -122,57 +123,103 @@ const formAnim = () => {
         const scrollElemHeight = scrollElem.getBoundingClientRect().height - selectMenuHeight;
 
         if (scrollbar.style.transform == '') scrollbar.style.transform = 'translateY(0px)';
+        if (scrollElem.style.transform == '' && isMobile()) scrollElem.style.transform = 'translateY(0px)';
 
         scrollbar.addEventListener('mousedown', grabScrollbar);
-        selectMenu.addEventListener('wheel', wheelScroll);
+        
+        if (!isMobile()) {
+            selectMenu.addEventListener('wheel', wheelScroll);
+        } else {
+            selectMenu.addEventListener('touchstart', grabScrollbar);
+        }
 
         function grabScrollbar(e) {
             
             let scrollbarPos = 0,
-                scrollbarPosLast = e.layerY;
+                scrollbarPosLast = !isMobile() ? e.layerY : e.touches[0].clientY;
             
-            selectMenu.addEventListener('mousemove', startMoving);
+            if (!isMobile()) {
+                selectMenu.addEventListener('mousemove', startMoving);
+            } else {
+                selectMenu.addEventListener('touchmove', startMoving);
+                document.body.style.overflow = 'hidden';
+            }
 
             function startMoving(e) {
                 removeSmooth();
 
-                scrollbarPos = e.layerY - scrollbarPosLast;
-                scrollbar.style.transform = `translateY(${calcCurrentPos() + scrollbarPos}px)`;
+                scrollbarPos = (!isMobile() ? e.layerY : e.touches[0].clientY) - scrollbarPosLast;
+
+                if (!isMobile()) {
+                    scrollbar.style.transform = `translateY(${calcCurrentScrollbarPos() + scrollbarPos}px)`;
+                } else {
+                    scrollElem.style.transform = `translateY(${calcCurrentScrollElemPos() + scrollbarPos}px)`;
+                }
+
                 limitPos();
-                scrollbarPosLast = e.layerY;
+                scrollbarPosLast = !isMobile() ? e.layerY : e.touches[0].clientY;
 
                 setPosScrollElem();
             }
 
-            document.addEventListener('mouseup', () => {
-                selectMenu.removeEventListener('mousemove', startMoving);
-            });
+            if (!isMobile()) {
+                document.addEventListener('mouseup', () => {
+                    selectMenu.removeEventListener('mousemove', startMoving);
+                });
+            } else {
+                document.addEventListener('touchend', () => {
+                    selectMenu.removeEventListener('touchmove', startMoving);
+                    document.body.style.overflow = '';
+                });
+            }
             
-        }
+            
+
+        } //grabScrollbar
 
         function wheelScroll(e) {
             addSmooth();
-            scrollbar.style.transform = `translateY(${calcCurrentPos() + e.deltaY / 10}px)`;
+            scrollbar.style.transform = `translateY(${calcCurrentScrollbarPos() + e.deltaY / 10}px)`;
             limitPos();
             setPosScrollElem();
         }
 
-        function calcCurrentPos() {
+        function calcCurrentScrollbarPos() {
             return +scrollbar.style.transform.match(/-*[0-9]+/)[0];
         }
 
+        function calcCurrentScrollElemPos() {
+            return +scrollElem.style.transform.match(/-*[0-9]+/)[0];
+        }
+
         function setPosScrollElem() {
-            const scrollbarPercent = calcCurrentPos() * 100 / (trackHeight - scrollbarHeight);
-            scrollElem.style.transform = `translateY(-${scrollbarPercent * (scrollElemHeight / 100)}px)`;
+            if (!isMobile()) {
+                const scrollbarPercent = calcCurrentScrollbarPos() * 100 / (trackHeight - scrollbarHeight);
+                scrollElem.style.transform = `translateY(-${scrollbarPercent * (scrollElemHeight / 100)}px)`;
+            } else {
+                const scrollbarPercent = calcCurrentScrollElemPos() * 100 / scrollElemHeight;
+                console.log(scrollbarPercent);
+                scrollbar.style.transform = `translateY(${Math.abs(scrollbarPercent * ((trackHeight - scrollbarHeight) / 100))}px)`;
+            }
         }
 
         function limitPos() {
-            if (calcCurrentPos() < 0) {
-                scrollbar.style.transform = `translateY(0px)`;
-            }
-
-            if (calcCurrentPos() > trackHeight - scrollbarHeight) {
-                scrollbar.style.transform = `translateY(${trackHeight - scrollbarHeight}px)`;
+            if (!isMobile()) {
+                if (calcCurrentScrollbarPos() < 0) {
+                    scrollbar.style.transform = `translateY(0px)`;
+                }
+    
+                if (calcCurrentScrollbarPos() > trackHeight - scrollbarHeight) {
+                    scrollbar.style.transform = `translateY(${trackHeight - scrollbarHeight}px)`;
+                }
+            } else {
+                if (calcCurrentScrollElemPos() > 0) {
+                    scrollElem.style.transform = `translateY(0px)`;
+                }
+    
+                if (Math.abs(calcCurrentScrollElemPos()) > scrollElemHeight) {
+                    scrollElem.style.transform = `translateY(-${scrollElemHeight}px)`;
+                }
             }
         }
 
@@ -214,15 +261,15 @@ const formAnim = () => {
 
         formItem.addEventListener('focus', (e) => {
             setInputValue();
-            formItem.addEventListener('input', definePhoneNum);
+            formItem.addEventListener('input', defineUserInput);
 
             formItem.addEventListener('blur', () => {
-                formItem.removeEventListener('input', definePhoneNum);
+                formItem.removeEventListener('input', defineUserInput);
             });
         });
 
 
-        function definePhoneNum(e) {
+        function defineUserInput(e) {
 
             if (e.data == null) {
                 if (userInput.includes(emptyField)) {
@@ -252,6 +299,10 @@ const formAnim = () => {
             
             formItem.value = currentValue.join('');
         }
+    }
+
+    function isMobile() {
+        return (window.innerWidth > 768) ? false : true;
     }
 
 }; // end

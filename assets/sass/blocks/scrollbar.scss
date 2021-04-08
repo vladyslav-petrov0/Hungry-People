@@ -11,6 +11,10 @@
     max-height: 195px;
 
     width: auto;
+
+    @include media(768px) {
+        max-height: 125px;
+    }
 }
 
 .scrollbar__elem {

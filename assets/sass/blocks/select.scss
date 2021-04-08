@@ -1,6 +1,4 @@
 .select {
-    padding: 20px 15px;
-
     cursor: pointer;
     user-select: none;
 
@@ -86,9 +84,15 @@
 
     &.extended {
         height: 195px;
+
+        @include media(768px) {
+            height: 125px;
+        }
     }
 
-    
+    @include media(768px) {
+        max-height: 125px;
+    }
 }
 
 .select__hidden {
