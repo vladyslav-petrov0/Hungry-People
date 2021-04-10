@@ -1,4 +1,10 @@
-const formAnim = () => {
+const forms = () => {
+
+//= forms/anim-forms.js
+//= forms/check-forms.js
+//= forms/templates-forms.js
+//= custom-select.js
+
     const formElems = qSelA('.form--animated');
 
     for (let item of formElems) {
@@ -59,7 +65,6 @@ const formAnim = () => {
 
                     document.addEventListener('mousedown', function clickOut(e) {
                         if (e.target != item && !e.target.closest('.select')) {
-
                             closeSelect();
                             document.removeEventListener('click', clickOut);
                         }
@@ -122,12 +127,11 @@ const formAnim = () => {
         const scrollElem = qSel('ul', scrollbar.closest('.select__wrapper'));
         const scrollElemHeight = scrollElem.getBoundingClientRect().height - selectMenuHeight;
 
-        if (scrollbar.style.transform == '') scrollbar.style.transform = 'translateY(0px)';
-        if (scrollElem.style.transform == '' && isMobile()) scrollElem.style.transform = 'translateY(0px)';
+        setDefaultTransform();
 
         scrollbar.addEventListener('mousedown', grabScrollbar);
         
-        if (!isMobile()) {
+        if (!isDeviceMobile()) {
             selectMenu.addEventListener('wheel', wheelScroll);
         } else {
             selectMenu.addEventListener('touchstart', grabScrollbar);
@@ -136,9 +140,9 @@ const formAnim = () => {
         function grabScrollbar(e) {
             
             let scrollbarPos = 0,
-                scrollbarPosLast = !isMobile() ? e.layerY : e.touches[0].clientY;
+                scrollbarPosLast = !isDeviceMobile() ? e.layerY : e.touches[0].clientY;
             
-            if (!isMobile()) {
+            if (!isDeviceMobile()) {
                 selectMenu.addEventListener('mousemove', startMoving);
             } else {
                 selectMenu.addEventListener('touchmove', startMoving);
@@ -148,21 +152,21 @@ const formAnim = () => {
             function startMoving(e) {
                 removeSmooth();
 
-                scrollbarPos = (!isMobile() ? e.layerY : e.touches[0].clientY) - scrollbarPosLast;
+                scrollbarPos = (!isDeviceMobile() ? e.layerY : e.touches[0].clientY) - scrollbarPosLast;
 
-                if (!isMobile()) {
+                if (!isDeviceMobile()) {
                     scrollbar.style.transform = `translateY(${calcCurrentScrollbarPos() + scrollbarPos}px)`;
                 } else {
                     scrollElem.style.transform = `translateY(${calcCurrentScrollElemPos() + scrollbarPos}px)`;
                 }
 
                 limitPos();
-                scrollbarPosLast = !isMobile() ? e.layerY : e.touches[0].clientY;
+                scrollbarPosLast = !isDeviceMobile() ? e.layerY : e.touches[0].clientY;
 
                 setPosScrollElem();
             }
 
-            if (!isMobile()) {
+            if (!isDeviceMobile()) {
                 document.addEventListener('mouseup', () => {
                     selectMenu.removeEventListener('mousemove', startMoving);
                 });
@@ -173,9 +177,12 @@ const formAnim = () => {
                 });
             }
             
-            
-
         } //grabScrollbar
+
+        function setDefaultTransform() {
+            if (scrollbar.style.transform == '') scrollbar.style.transform = 'translateY(0px)';
+            if (scrollElem.style.transform == '' && isDeviceMobile()) scrollElem.style.transform = 'translateY(0px)';
+        }
 
         function wheelScroll(e) {
             addSmooth();
@@ -193,18 +200,17 @@ const formAnim = () => {
         }
 
         function setPosScrollElem() {
-            if (!isMobile()) {
+            if (!isDeviceMobile()) {
                 const scrollbarPercent = calcCurrentScrollbarPos() * 100 / (trackHeight - scrollbarHeight);
                 scrollElem.style.transform = `translateY(-${scrollbarPercent * (scrollElemHeight / 100)}px)`;
             } else {
                 const scrollbarPercent = calcCurrentScrollElemPos() * 100 / scrollElemHeight;
-                console.log(scrollbarPercent);
                 scrollbar.style.transform = `translateY(${Math.abs(scrollbarPercent * ((trackHeight - scrollbarHeight) / 100))}px)`;
             }
         }
 
         function limitPos() {
-            if (!isMobile()) {
+            if (!isDeviceMobile()) {
                 if (calcCurrentScrollbarPos() < 0) {
                     scrollbar.style.transform = `translateY(0px)`;
                 }
@@ -234,13 +240,7 @@ const formAnim = () => {
         }
     }; // scrollbar
 
-    function getElemHeight(el) {
-        return parsF(styles(el).height);
-    }
     
-    function getElemMaxHeight(el) {
-        return parsF(styles(el).maxHeight);
-    }
 
     
     const formTemplates = qSelA('.form__elem--template');
@@ -301,7 +301,58 @@ const formAnim = () => {
         }
     }
 
-    function isMobile() {
+    function clearForms() {
+        for (let item of qSelA('input')) {
+            item.value = '';
+        }
+    }
+
+    clearForms();
+
+    const btnSubmit = qSel('.btn--book');
+
+    btnSubmit.addEventListener('click', submitForm);
+
+    function submitForm(e) {
+        const formSection = this.parentNode,
+            formPhone = qSel('.form__elem--email', formSection),
+            formEmail = qSel('.form__elem--phone', formSection),
+            formPeople = qSel('.select__hidden--people', formSection),
+            formTime = qSel('.select__hidden--time', formSection),
+            formDate = qSel('.form__elem--date', formSection),
+            formName = qSel('.form__elem--name', formSection);
+        
+        const forms = [
+            formPhone,
+            formEmail,
+            formPeople,
+            formTime,
+            formDate
+        ];
+
+        const formsValues = forms.map(item => (item.tagName == 'INPUT') ? item.value : item.getAttribute('value'));
+
+        // console.log(formsValues);
+
+        if (formsValues.includes('')) {
+            e.preventDefault();
+            console.log('SUKA ZAPOLNI FORMU EBLAN');
+        } else {
+
+        }
+    }
+    
+    // GENERAL FUNCTIONS
+    
+    function getElemHeight(el) {
+        return parsF(styles(el).height);
+    }
+    
+    function getElemMaxHeight(el) {
+        return parsF(styles(el).maxHeight);
+    }
+
+    function isDeviceMobile() {
         return (window.innerWidth > 768) ? false : true;
     }
 

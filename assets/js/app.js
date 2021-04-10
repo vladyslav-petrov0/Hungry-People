@@ -35,12 +35,12 @@ window.addEventListener('load', (e) => {
 //= components/wave-effect.js
 //= components/page-scroll.js
 //= components/burger-menu.js
-//= components/form-anim.js
+//= components/forms.js
 
 // == MAIN CODE ==
 
 btnWave();
 pageScroll();
 burgerMenu();
-formAnim();
+forms();
 
