@@ -52,4 +52,9 @@
 
 .btn--book {
     width: 100%;
+    transition: background-color 0.5s ease;
+
+    &.rejected {
+        background-color: #db2929;
+    }
 }

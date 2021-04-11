@@ -57,6 +57,10 @@
     &.selected:after {
         width: 100%;
     }
+
+    &.wrong-input:after {
+        background-color: #db2929;
+    }
 }
 
 .form__label {
