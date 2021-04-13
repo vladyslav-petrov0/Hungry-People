@@ -37,7 +37,10 @@ const formsSelect = () => {
     
                         for (let otherItem of otherItems) {
                             const selectMenu = qSel('.select__menu', otherItem);
-                            closeSelect(otherItem, selectMenu);
+
+                            if (otherItem.classList.contains('extended')) {
+                                closeSelect(otherItem, selectMenu);
+                            }
                         }
 
                     }
@@ -92,6 +95,19 @@ const formsSelect = () => {
             function closeSelect(itm = item, selMenu = selectMenu) {
                 itm.classList.remove('extended');
                 selMenu.classList.remove('extended');
+
+                removeWrongInputNotification();
+
+                function removeWrongInputNotification() {
+                    const formSection = itm.closest('.form__section'),
+                    selectHiddenValue = qSel('.select__hidden', formSection).getAttribute('value');
+
+                    formSection.classList.remove('wrong-input');
+
+                    if (!selectHiddenValue) {
+                        formSection.classList.remove('selected');
+                    }
+                }
             }
 
             function showSelect() {

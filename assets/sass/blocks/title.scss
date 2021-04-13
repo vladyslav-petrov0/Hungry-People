@@ -23,14 +23,24 @@
             line-height: 70px;
         }
 
-        // @include media(950px) {
-        //     font-size: 50px;
-        //     line-height: 60px;
-        // }
+        @include media(768px) {
+            font-size: 55px;
+            line-height: 60px;
+        }
 
-        @include media(850px) {
-            font-size: 46px;
-            line-height: 56px;
+        @include media(550px) {
+            font-size: 50px;
+            line-height: 55px;
+        }
+
+        @include media(400px) {
+            font-size: 45px;
+            line-height: 50px;
+        }
+
+        @include media(320px) {
+            font-size: 40px;
+            line-height: 45px;
         }
     }
 
@@ -64,8 +74,12 @@
             bottom: -25px;
         }
 
-        @include media(850px) {
+        @include media(768px) {
             bottom: -20px;
+        }
+
+        @include media(320px) {
+            display: none;
         }
     }
 }
@@ -81,8 +95,12 @@
         margin-bottom: 50px;
     }
 
-    @include media(850px) {
+    @include media(768px) {
         margin-bottom: 40px;
+    }
+
+    @include media(320px) {
+        margin-bottom: 20px;
     }
 }
 
@@ -91,6 +109,21 @@
 
     &:after {
         bottom: -18px;
+
+        @include media(550px) {
+            bottom: -10px;
+        }
+
+        @include media(400px) {
+            bottom: -12px;
+        }
+    }
+    
+    @include media(400px) {
+        font-size: 30px;
+        line-height: 38px;
+
+        margin-bottom: 25px;
     }
 }
 

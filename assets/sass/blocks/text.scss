@@ -3,13 +3,24 @@
     font-size: 14px;
     line-height: 24px;
 
-
     &--head {
         font-weight: bold;
         font-size: 18px;
         line-height: 28px;
 
         margin-bottom: 25px;
+
+        @include media(550px) {
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        @include media(400px) {
+            font-size: 14px;
+            line-height: 20px;
+
+            margin-bottom: 15px;
+        }
     }
 
     &--black {

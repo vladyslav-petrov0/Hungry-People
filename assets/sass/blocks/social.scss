@@ -8,6 +8,10 @@
     right: 0;
 
     transform: translateY(-50%);
+
+    @include media(768px) {
+        display: none;
+    }
 }
 
 .social__elem {

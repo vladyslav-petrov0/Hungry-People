@@ -49,4 +49,13 @@ const forms = () => {
         formSection.classList.add('selected');
     }
 
+    function unselectForm(item) {
+        const nodeLabel = qSel('.form__label', item.parentNode);
+
+        nodeLabel.classList.remove('chosen');
+        item.parentNode.classList.remove('selected');
+        item.parentNode.classList.remove('wrong-input');
+        item.value = '';
+    }
+
 }; // end

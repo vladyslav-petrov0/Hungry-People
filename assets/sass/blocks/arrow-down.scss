@@ -19,6 +19,10 @@
     &--intro {
         bottom: 13.5%;
         left: 50%;
+
+        @media (max-height: 550px) {
+            bottom: 7%;
+        }
     }
 
     &--section {
@@ -41,7 +45,7 @@
 
         transition: transform 0.4s ease;
 
-        @include media(850px) {
+        @include media(350px) {
             height: 15px;
             width: 15px;
         }
@@ -60,7 +64,7 @@
 
         border: 1px solid $colorSec3;
 
-        @include media(850px) {
+        @include media(350px) {
             width: 45px;
             height: 45px;
 
@@ -80,7 +84,7 @@
         }
     }
 
-    @include media(850px) {
+    @include media(350px) {
         width: 30px;
         height: 30px;
     }

@@ -14,6 +14,7 @@ const templatesForms = () => {
             formItem.addEventListener('input', defineUserInput);
 
             formItem.addEventListener('blur', () => {
+                if (userInput[0] == emptyField) unselectForm(formItem);
                 formItem.removeEventListener('input', defineUserInput);
             });
         });

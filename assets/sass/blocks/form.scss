@@ -28,6 +28,10 @@
     @include media(1200px) {
         width: 160px;
     }
+
+    @include media(550px) {
+        width: 100%;
+    }
 }
 
 .form__section {
@@ -36,7 +40,19 @@
     margin: 0 10px 10px 0;
 
     &:nth-child(even) {
-        margin-right: 0;
+        @media (min-width: 1201px) {
+            margin-right: 0;
+        }
+
+        @include media(550px) {
+            margin-right: 0;
+        }
+    }
+
+    &:nth-child(3n) {
+        @include mediaX(551px, 1200px) {
+            margin-right: 0;
+        }
     }
 
     &:after {
@@ -60,6 +76,10 @@
 
     &.wrong-input:after {
         background-color: #db2929;
+    }
+
+    @include media(550px) {
+        flex: 1 1 45%;
     }
 }
 

@@ -1,5 +1,5 @@
 const btnWave = () => {
-    const waveTransition = parsF(styles(qSel('.wave-effect--template')).transitionDuration) * 1000;
+    const waveTransition = getElemTransition(qSel('.wave-effect--template')) * 1000;
     const btns = qSelA('.btn--waved');
 
     let timerSeconds = 0;
@@ -44,10 +44,10 @@ const btnWave = () => {
 
                     clearTimeout(btnTimer);
 
-                    const promise = new Promise((res) => {
+                    const promise = new Promise((resolve) => {
 
                         setTimeout(() => {
-                            opacityDrop(res);
+                            opacityDrop(resolve);
                         }, waveTransition - timerSeconds);
                         
                     }).then(() => {
@@ -63,9 +63,9 @@ const btnWave = () => {
                 }); // mouseup
             } // removingWave(event)
     
-            function opacityDrop(res) {
+            function opacityDrop(resolve) {
                 wave.style.opacity = '0';
-                res();
+                resolve();
             }
     
         }); // mousedown

@@ -43,6 +43,10 @@
         @include media(950px) {
             display: block;
         }
+
+        @include media(450px) {
+            display: none;
+        }
     }
 
     &:before {
@@ -93,9 +97,20 @@
         transform: translateX(-50%) scale(0.8);
     }
 
+    @include media(350px) {
+        top: 0px;
+        transform: translateX(-50%) scale(0.7);
+    }
+
+    @media (max-height: 550px) {
+       display: none;
+    }
+
     &.showed {
         @include media(950px) {
             z-index: 999;
         }
     }
+
+    
 }

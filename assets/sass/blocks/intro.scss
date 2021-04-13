@@ -18,6 +18,14 @@
     @include media(1100px) {
         padding-top: 80px;
     }
+
+    @include media(768px) {
+        background-attachment: scroll;
+    }
+
+    @media (max-height: 550px) {
+        padding-top: 40px;
+    }
 }
 
 .intro__body {
@@ -35,6 +43,10 @@
 .intro__btns {
     display: flex;
     justify-content: center;
+
+    @include media(320px) {
+        flex-direction: column;
+    }
 }
 
 .intro__content {
@@ -70,6 +82,14 @@
         @include media(1100px) {
             height: 88%;
         }
+
+        @include media(450px) {
+            display: none;
+        }
+    }
+
+    @include media(450px) {
+        border: 0;
     }
 }
 
@@ -91,5 +111,9 @@
     @include media(950px) {
         font-size: 11px;
         line-height: 11px;
+    }
+
+    @include media(768px) {
+        display: none;
     }
 }

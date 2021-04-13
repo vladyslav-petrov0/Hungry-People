@@ -11,10 +11,8 @@ const animForms = () => {
             };
 
             item.addEventListener('blur', function clickOut(e) {
-                if (item.value.length == 0) {
-                    nodeLabel.classList.remove('chosen');
-                    item.parentNode.classList.remove('selected');
-
+                if (!item.value.length) {
+                    unselectForm(item);
                     item.removeEventListener('blur', clickOut);
                 };
             });

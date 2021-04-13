@@ -14,9 +14,19 @@
         line-height: 12px;
     }
 
-    @include media(850px) {
+    @include media(550px) {
         line-height: 10px;
         font-size: 10px;
+    }
+
+    @include media(400px) {
+        line-height: 10px;
+        font-size: 9px;
+    }
+
+    @include media(350px) {
+        line-height: 9px;
+        font-size: 8px;
     }
 }
 
@@ -26,4 +36,8 @@
     left: 50%;
     
     transform: translateX(-50%);
+
+    @include media(400px) {
+        top: -30px;
+    }
 }

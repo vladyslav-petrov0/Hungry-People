@@ -99,6 +99,18 @@ $filter2: drop-shadow(0px 0px 50px #000000);
                 right: -60px;
             }
         }
+
+        @include media(400px) {
+            width: 100px;
+            height: 100px;
+
+
+            @if $param == left {
+                left: -50px;
+            } @else if $param == right {
+                right: -50px;
+            }
+        }
     }
 }
 

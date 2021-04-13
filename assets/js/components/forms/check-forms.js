@@ -50,7 +50,7 @@ const checkForms = () => {
         }
 
         validInputFields();
-        listenFormEdit();
+        listenForValidInput();
 
         function showInputError(item) {
             const formSection = item.closest('.form__section');
@@ -59,7 +59,7 @@ const checkForms = () => {
             formSection.classList.add('selected');
         }
 
-        function listenFormEdit() {
+        function listenForValidInput() {
             for (let form of forms) {
                 if (form[0].tagName == 'INPUT') {
                     form[0].addEventListener('input', () => {

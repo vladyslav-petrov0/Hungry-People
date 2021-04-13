@@ -26,7 +26,7 @@
         height: 50px;
     }
 
-    @include media(850px) {
+    @include media(550px) {
         width: 125px;
         height: 45px;
     }
@@ -36,10 +36,15 @@
 
     &:first-child {
         margin-right: 40px;
-    }
 
-    @include media(850px) {
-        width: 125px;
+        @include media(550px) {
+            margin-right: 20px;
+        }
+
+        @include media(320px) {
+            margin: 10px 0 0 0;
+            order: 2;
+        }
     }
 }
 

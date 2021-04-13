@@ -1,37 +1,21 @@
 const pageScroll = () => {
     if (window.innerWidth > 1024) {
-        const sectionCoords = [];
-    
-        for (let item of qSelA('._scroll-page')) {
-            sectionCoords.push(getCoords(item));
-        }
+
+        const sectionCoords = Array.from(qSelA('._scroll-page')).map(item => getCoords(item)),
+            sectionCoordsLength = sectionCoords.length - 1;
         
-        const sectionCoordsLength = sectionCoords.length - 1;
         let currentPos = 0,
-            counter = 0;
+            canScroll = 0;
 
-        const noScrollElems = qSelA('.select__menu');
-        for (let item of noScrollElems) {
-            item.addEventListener('mouseover', () => {
-                counter = 1;
-
-                item.addEventListener('mouseout', function outOfElem() {
-                    counter = 0;
-
-                    item.removeEventListener('mouseout', outOfElem);
-                });
-            });
-        }
+        disableUnnecessaryScroll();
         
-        for (let item of qSelA('.arrow-scroll')) scrollByButton(item);
+        for (let item of qSelA('.arrow-scroll')) {
+            setScrollByButton(item);
+        }
 
         window.addEventListener('wheel', (e) => {
-            if (counter == 0) {
-        
-                reloadCounter();
-        
-                if (e.deltaY > 0) { currentPos++ } 
-                else { currentPos-- };
+            if (!canScroll) {
+                changeCurrentPos(e.deltaY > 0);
         
                 if (currentPos > sectionCoordsLength) {
                     currentPos = sectionCoordsLength;
@@ -39,23 +23,17 @@ const pageScroll = () => {
                     currentPos = 0;
                 } else {
                     scrollToElem();
+                    disableRandomScroll();
                 }
-
             }
         });
 
-        function scrollByButton(elem) {
+        function setScrollByButton(elem) {
             elem.addEventListener('click', (e) => {
-                if (counter == 0) {
-
-                    reloadCounter();
-
-                    if (elem.classList.contains('arrow--down')) { 
-                        currentPos++ 
-                    } else { currentPos-- };
-
+                if (!canScroll) {
+                    disableRandomScroll();
+                    changeCurrentPos(elem.classList.contains('arrow--down'));
                     scrollToElem();
-
                 }
             });
         }
@@ -66,11 +44,19 @@ const pageScroll = () => {
             return rect.top + pageYOffset;
         }
 
-        function reloadCounter() {
-            counter = 1;
+        function disableRandomScroll() {
+            canScroll = 1;
             setTimeout(() => {
-                counter = 0
+                canScroll = 0
             }, 1000)
+        }
+
+        function changeCurrentPos(condition) {
+            if (condition) { 
+                currentPos++ 
+            } else { 
+                currentPos-- 
+            };
         }
 
         function scrollToElem() {
@@ -79,6 +65,21 @@ const pageScroll = () => {
                 left: 0,
                 behavior: 'smooth'
             });
+        }
+
+        function disableUnnecessaryScroll() {
+            const noScrollElems = qSelA('.select__menu');
+            for (let item of noScrollElems) {
+                item.addEventListener('mouseover', () => {
+                    canScroll = 1;
+    
+                    item.addEventListener('mouseout', function outOfElem() {
+                        canScroll = 0;
+    
+                        item.removeEventListener('mouseout', outOfElem);
+                    });
+                });
+            }
         }
 
     }  // viewport if
