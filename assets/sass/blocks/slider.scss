@@ -1,0 +1,76 @@
+.slider-btns {
+    display: flex;
+
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    z-index: 999;
+
+    transform: translateX(-50%);
+
+    @include media(1024px) {
+        bottom: 5%;
+    }
+
+    @include media(400px) {
+        bottom: 2.5%;
+    }
+}
+
+.slider__btn {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+    opacity: 0.5;
+    background-color: $color1;
+
+    margin-right: 20px;
+    transition: opacity 0.3s ease;
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &--active {
+        opacity: 1;
+    }
+}
+
+.slider {
+
+}
+
+.slider__slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    width: 100%;
+
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    transition: clip-path 1s ease-in-out;
+
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+
+    @include media(768px) {
+        background-attachment: local;
+    }
+
+    &--current {
+        z-index: 10;
+    }
+
+    &--clipped {
+        clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+    }
+
+    &--clipped-reverse {
+        clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    }
+}

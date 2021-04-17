@@ -36,6 +36,7 @@ window.addEventListener('load', (e) => {
 //= components/page-scroll.js
 //= components/burger-menu.js
 //= components/forms.js
+//= components/background-slider.js
 
 // == MAIN CODE ==
 
@@ -43,4 +44,5 @@ btnWave();
 pageScroll();
 burgerMenu();
 forms();
+backgroundSlider();
 
