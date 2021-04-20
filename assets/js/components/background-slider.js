@@ -4,8 +4,10 @@ const backgroundSlider = () => {
 
     for (let slider of sliders) {
         let currentPos = 0;
+        let canSlide = 1;
 
-        const sliderBtns = qSel('.slider-btns', slider.parentNode),
+        const sliderBtnsContainer = qSel('.slider-btns', slider.parentNode),
+            sliderBtns = sliderBtnsContainer.children,
             sliderSlides = qSelA('.slider__slide', slider),
             sliderSlideBackgrounds = [
                 '/assets/img/chocolate/bg.jpg',
@@ -19,41 +21,62 @@ const backgroundSlider = () => {
             sliderSlides[i].style.backgroundImage = `url(${sliderSlideBackgrounds[i]})`;
         }
 
-        setInterval(nextSlide, 5000);
-        sliderBtns.addEventListener('click', selectSlide);
+        let autoSlideTimer = setInterval(autoSlide, 5000);
+        sliderBtnsContainer.addEventListener('click', selectSlide);
 
         function selectSlide(e) {
-            const btns = sliderBtns.children;
+            if (e.target.tagName == 'BUTTON' && canSlide) {
+                currentPos = Array.from(sliderBtns).findIndex(item => item == e.target);
 
-            currentPos = Array.from(btns).findIndex(item => item == e.target);
+                const secondSlide = qSel('.slider__slide--second', slider);
+                secondSlide.style.backgroundImage = `url(${sliderSlideBackgrounds[currentPos]})`;
+                nextSlide();
+                holdAutoSlide();
+            }
+        }
 
-            if (e.target.tagName == 'BUTTON') {
-                for (let btn of btns) {
-                    btn.classList.remove('slider__btn--active');
+        function switchCurrentBtn() {
+            for (let btn of sliderBtns) {
+                btn.classList.remove('slider__btn--active');
+            }
+
+            sliderBtns[currentPos].classList.add('slider__btn--active');
+        }
+
+        function autoSlide() {
+            if (canSlide) {
+                changeCurrentPos();
+                nextSlide();
+            }
+
+            function changeCurrentPos() {
+                currentPos++;
+                if (currentPos == sliderSlideBackgrounds.length) {
+                    currentPos = 0;
                 }
-    
-                e.target.classList.add('slider__btn--active');
             }
         }
 
         function nextSlide() {
 
             const currentSlide = qSel('.slider__slide--current', slider),
-                secondSlide = qSel('.slider__slide--second', slider);
+                secondSlide = qSel('.slider__slide--second', slider),
+                slideIsFirst = currentSlide == currentSlide.parentNode.children[0];
 
-            changeCurrentPos();
-
-            if (currentPos % 2 == 0) {
+            if (slideIsFirst) {
                 currentSlide.classList.add('slider__slide--clipped-reverse');
             } else {
                 currentSlide.classList.add('slider__slide--clipped');
             }
 
+            disableRandomSlide();
+            switchCurrentBtn();
+
             setTimeout(() => {
 
                 currentSlide.classList.remove('slider__slide--current');
                 
-                if (currentPos % 2 == 0) {
+                if (slideIsFirst) {
                     currentSlide.classList.remove('slider__slide--clipped-reverse');
                 } else {
                     currentSlide.classList.remove('slider__slide--clipped');
@@ -64,31 +87,41 @@ const backgroundSlider = () => {
 
                 secondSlide.classList.add('slider__slide--current');
                 secondSlide.classList.remove('slider__slide--second');
-
+                
                 function getAvailableSlideBackground() {
                     const usedSlideBackgrounds = Array.from(qSelA('.slider__slide', slider))
                     .map(item => styles(item).backgroundImage
                     .match(/(\/assets\/img\/).+(\.jpg)|(\.png)/i)[0]);
                 
-                    return sliderSlideBackgrounds.find((item) => {
-                        return !usedSlideBackgrounds.includes(item);
-                    });
+                    return sliderSlideBackgrounds.find((item) => !usedSlideBackgrounds.includes(item));
                 }
-
+                
             }, slideAnimDuration);
 
-            function changeCurrentPos() {
-                currentPos++;
-                if (currentPos > sliderSlideBackgrounds.length) {
-                    currentPos = 0;
-                }
-            }
+        } //nextslide
+        
+        function holdAutoSlide() {
+            clearInterval(autoSlideTimer);
 
+            setTimeout(() => {
+                autoSlideTimer = setInterval(autoSlide, 5000);
+            }, slideAnimDuration)
         }
 
-        
-    }
+        function disableRandomSlide() {
+            canSlide = 0;
 
-    
+            setTimeout(() => {
+                canSlide = 1;
+            }, slideAnimDuration)
+        }
+
+    } // for loop
 
 };
+
+/*
+неккоректно работает функция первого доступного слайда,
+при попытке ручного выбора слайда, например, когда текущий слайд
+является следующим после того, который мы хотим выбрать
+*/
