@@ -66,35 +66,36 @@ const backgroundSlider = () => {
             clipCurrentSlide();
             disableRandomSlide();
             switchCurrentBtn();
+            changeSlideBackground();
 
-            setTimeout(() => {
-
-                currentSlide.classList.remove('slider__slide--current');
+            function changeSlideBackground() {
+                setTimeout(() => {
+                    currentSlide.classList.remove('slider__slide--current');
                 
-                if (slideIsFirst) {
-                    currentSlide.classList.remove('slider__slide--clipped-reverse');
-                } else {
-                    currentSlide.classList.remove('slider__slide--clipped');
-                }
-
-                currentSlide.classList.add('slider__slide--second');
-                currentSlide.style.backgroundImage = `url(${getAvailableSlideBackground()})`;
-
-                secondSlide.classList.add('slider__slide--current');
-                secondSlide.classList.remove('slider__slide--second');
-      
-                function getAvailableSlideBackground() {
-                    const secondSlideImageUrl = secondSlide.style.backgroundImage.match(/(\/assets\/img\/).+(\.jpg)|(\.png)/i)[0];
-                    const secondSlideImageUrlIndex = slideBackgrounds.indexOf(secondSlideImageUrl);
-
-                    if (secondSlideImageUrlIndex == slideBackgrounds.length - 1) {
-                        return slideBackgrounds[0];
+                    if (slideIsFirst) {
+                        currentSlide.classList.remove('slider__slide--clipped-reverse');
                     } else {
-                        return slideBackgrounds[secondSlideImageUrlIndex + 1];
+                        currentSlide.classList.remove('slider__slide--clipped');
                     }
-                }
-
-            }, slideAnimDuration);
+    
+                    currentSlide.classList.add('slider__slide--second');
+                    currentSlide.style.backgroundImage = `url(${getAvailableSlideBackground()})`;
+    
+                    secondSlide.classList.add('slider__slide--current');
+                    secondSlide.classList.remove('slider__slide--second');
+          
+                    function getAvailableSlideBackground() {
+                        const secondSlideImageUrl = secondSlide.style.backgroundImage.match(/(\/assets\/img\/).+(\.jpg)|(\.png)/i)[0];
+                        const secondSlideImageUrlIndex = slideBackgrounds.indexOf(secondSlideImageUrl);
+    
+                        if (secondSlideImageUrlIndex == slideBackgrounds.length - 1) {
+                            return slideBackgrounds[0];
+                        } else {
+                            return slideBackgrounds[secondSlideImageUrlIndex + 1];
+                        }
+                    }
+                }, slideAnimDuration)
+            }
 
             function clipCurrentSlide() {
                 if (slideIsFirst) {

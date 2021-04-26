@@ -37,6 +37,7 @@ window.addEventListener('load', (e) => {
 //= components/burger-menu.js
 //= components/forms.js
 //= components/background-slider.js
+//= components/tabs.js
 
 // == MAIN CODE ==
 
@@ -45,4 +46,5 @@ pageScroll();
 burgerMenu();
 forms();
 backgroundSlider();
+tabs();
 

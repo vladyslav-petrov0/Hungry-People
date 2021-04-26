@@ -1,0 +1,174 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+}
+
+.menu__header {
+    padding: 50px 0;
+
+    @include media(768px) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+
+        max-width: 450px;
+    }
+
+    @include media(550px) {
+        max-width: 330px;
+    }
+}
+
+.menu__column {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    @include media(550px) {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.menu__kind {
+    @include text($font1, normal, bold);
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    
+    color: $colorSec1;
+    background-color: transparent;
+
+    padding: 20px 40px;
+    
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: $color2;
+    }
+
+    @include media(910px) {
+        padding: 20px 30px;
+    }
+
+    @include media(550px) {
+        padding: 15px 20px;
+    }
+
+    @include media(400px) {
+        padding: 10px 15px;
+        flex: 2 1 auto;
+        max-width: 70px;
+    }
+}
+
+.menu__body {
+    width: 100%;
+}
+
+.menu__section {
+    display: none;
+
+    animation-duration: 0.25s;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+
+    &--active {
+        display: block;
+
+        animation-name: showUp;
+
+        @include media(768px) {
+            animation-name: none;
+        }
+    }
+
+    &--closed {
+        display: block;
+
+        animation-name: closeOut;
+    }
+
+    @keyframes showUp {
+        0% {
+            opacity: 0.3;
+            transform: scale(0.9);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes closeOut {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+    }
+}
+
+.menu__item {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 31%;
+
+    min-width: 215px;
+    margin-bottom: 30px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    @include media(768px) {
+        flex: 0 1 47%;
+    }
+
+    @include media(550px) {
+        flex: 0 1 auto;
+    }
+}
+
+.menu__item-main {
+    font-family: $font2;
+    font-size: 18px;
+    line-height: 18px;
+
+    text-transform: uppercase;
+
+    color: $colorSec1;
+}
+
+.menu__item-description {
+    @include text($font1, normal, normal);
+    line-height: 18px;
+    
+    color: rgba(51, 51, 51, 0.5);
+
+    margin-top: 7px;
+}
+
+.menu__item-price {
+    white-space: pre;
+}
+
+.menu__show-more {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 25vh;
+
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.6) 24%, rgba(255,255,255,1) 54%);
+
+    @include noSelect;
+}

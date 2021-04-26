@@ -11,10 +11,6 @@
     @include media(1024px) {
         bottom: 5%;
     }
-
-    @include media(400px) {
-        bottom: 2.5%;
-    }
 }
 
 .slider__btn {
@@ -35,10 +31,6 @@
     &--active {
         opacity: 1;
     }
-}
-
-.slider {
-
 }
 
 .slider__slide {
