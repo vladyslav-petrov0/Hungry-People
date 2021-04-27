@@ -1,11 +1,15 @@
 const tabs = () => {
+
+//= accordeon.js
+    accordeon();
+
     const btnsContainer = qSel('.menu__header'),
         btns = qSelA('.menu__kind', btnsContainer),
         tabs = qSelA('.menu__section');
 
     let canChangeTab = 1;
 
-    const isMobile = window.innerWidth < 768;
+    const isMobile = window.innerWidth <= 768;
 
     btnsContainer.addEventListener('click', selectTab);
 
