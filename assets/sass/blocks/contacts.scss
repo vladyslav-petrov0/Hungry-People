@@ -1,0 +1,36 @@
+.contacts {
+    display: flex;
+    justify-content: space-around;
+
+    flex: 1 1 49%;
+}
+
+.contacts__item {
+    display: flex;
+    align-items: center;
+
+    @include text($font1, normal, bold);
+    font-size: 12px;
+    line-height: 12px;
+
+    color: rgba(51, 51, 51, 0.5);
+
+    &--address {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    &--phone {
+
+    }
+
+    &--email {
+
+    }
+
+    svg { margin-right: 10px; }
+}
+
+.contacts__input--hidden {
+    // display: none;
+}

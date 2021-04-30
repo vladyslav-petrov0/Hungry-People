@@ -9,7 +9,7 @@
 }
 
 .menu__header {
-    padding: 50px 0;
+    margin-bottom: 50px;
 
     @include media(768px) {
         display: flex;
@@ -44,6 +44,7 @@
     
     color: $colorSec1;
     background-color: transparent;
+    border-right: 1px solid rgba(51, 51, 51, 0.2);
 
     padding: 20px 40px;
     
@@ -51,6 +52,10 @@
 
     &:hover {
         background-color: $color2;
+    }
+
+    &:last-child {
+        border-right: none;
     }
 
     @include media(910px) {

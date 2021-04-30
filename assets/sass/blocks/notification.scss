@@ -1,0 +1,15 @@
+.notification {
+    @include text($font1, normal, bold);
+    font-size: 12px;
+    line-height: 16px;
+
+    padding: 10px;
+    background-color: $colorSec2;
+    
+    border-radius: 10px;
+}
+
+.notification--addition {
+    border: 10px solid transparent;
+    border-left: 20px solid green;
+}

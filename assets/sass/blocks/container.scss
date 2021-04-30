@@ -27,12 +27,12 @@
 .container--section {
     display: flex;
     align-items: center;
+    justify-content: center;
 
     position: relative;
     z-index: 100;
 
     @include media(1320px) {
-        justify-content: center;
     }
 
     @include media(1024px) {
@@ -51,4 +51,13 @@
 .container--delicious {
     justify-content: center;
     flex-direction: column;
+}
+
+.container--private {
+    justify-content: center;
+}
+
+.container--contact {
+    flex-direction: column;
+    align-items: center;
 }

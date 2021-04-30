@@ -38,6 +38,7 @@ window.addEventListener('load', (e) => {
 //= components/forms.js
 //= components/background-slider.js
 //= components/tabs.js
+//= components/clipboard.js
 
 // == MAIN CODE ==
 
@@ -47,4 +48,5 @@ burgerMenu();
 forms();
 backgroundSlider();
 tabs();
+clipboard();
 

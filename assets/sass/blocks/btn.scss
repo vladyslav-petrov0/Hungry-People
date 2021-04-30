@@ -33,7 +33,6 @@
 }
 
 .btn--intro {
-
     &:first-child {
         margin-right: 40px;
 
@@ -55,11 +54,22 @@
     backface-visibility: hidden;
 }
 
-.btn--book {
-    width: 100%;
+.btn--form {
     transition: background-color 0.5s ease;
 
     &.rejected {
         background-color: #db2929;
+    }
+}
+
+.btn--book {
+    width: 100%;
+}
+
+.btn--contact {
+    flex: 1 1 48%;
+
+    @include media(550px) {
+        flex: 1 0 100%;
     }
 }
