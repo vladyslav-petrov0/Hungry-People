@@ -69,7 +69,7 @@
 .btn--contact {
     flex: 1 1 48%;
 
-    @include media(550px) {
+    @include media(1024px) {
         flex: 1 0 100%;
     }
 }

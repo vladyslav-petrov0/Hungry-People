@@ -2,7 +2,16 @@
     display: flex;
     justify-content: space-around;
 
-    flex: 1 1 49%;
+    flex: 1 1 50%;
+
+    @include media(1024px) {
+        margin-bottom: 10px;
+    }
+
+    @include media(575px) {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .contacts__item {
@@ -29,8 +38,22 @@
     }
 
     svg { margin-right: 10px; }
+
+    &:last-child {
+        @include media(575px) {
+            margin-bottom: 0;
+        }
+    }
+
+    @include media(575px) {
+        margin-bottom: 10px;
+
+        max-width: 185px;
+        width: 100%;
+    }
 }
 
 .contacts__input--hidden {
-    // display: none;
+    position: absolute;
+    top: -100%;
 }

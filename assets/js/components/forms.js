@@ -34,7 +34,7 @@ const forms = () => {
     }
 
     function checkByReg(form, reg = /[0-9]/) {
-        if (form.tagName == 'INPUT') {
+        if (form.tagName == 'INPUT' || form.tagName == 'TEXTAREA') {
             return form.value.toLowerCase().trim().search(reg);
         }
         if (form.tagName == 'SELECT') {

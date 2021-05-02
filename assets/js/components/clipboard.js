@@ -4,15 +4,13 @@ const clipboard = () => {
 
     const copiedItem = qSel('.contacts__item--address');
 
-    copiedItem.addEventListener('click', copyItem);
+    copiedItem.addEventListener('click', copyText);
 
-    function copyItem() {
+    function copyText(event) {
 
-        const getHiddenInput = () => {
-            const item = document.createElement('input');
-            item.classList.add('contacts__input--hidden');
+        const createHiddenInput = () => {
+            const item = createNodeWithClass('input', 'contacts__input--hidden');
             item.value = this.textContent.trim();
-
             return item;
         }
 
@@ -21,12 +19,12 @@ const clipboard = () => {
             document.execCommand("copy");
         };
 
-        const hiddenInput = getHiddenInput();
+        const hiddenInput = createHiddenInput();
         document.body.append(hiddenInput);
         
-        if (hiddenInput != '') {
+        if (hiddenInput.value != '') {
             copyFromInput(hiddenInput);
-            notification('Copied');
+            showNotification('Succefully copied', 2000, event);
         }
 
         hiddenInput.remove();

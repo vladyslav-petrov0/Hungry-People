@@ -37,6 +37,8 @@
 }
 
 .menu__kind {
+    position: relative;
+
     @include text($font1, normal, bold);
     font-size: 12px;
     line-height: 18px;
@@ -44,11 +46,23 @@
     
     color: $colorSec1;
     background-color: transparent;
-    border-right: 1px solid rgba(51, 51, 51, 0.2);
 
     padding: 20px 40px;
     
     transition: background-color 0.3s ease;
+
+    &:after {
+        position: absolute;
+        top: 0;
+        right: -2px;
+
+        content: '';
+
+        height: 100%;
+        width: 1px;
+
+        background-color: rgba(51, 51, 51, 0.2);
+    }
 
     &:hover {
         background-color: $color2;
@@ -56,6 +70,10 @@
 
     &:last-child {
         border-right: none;
+
+        &:after {
+            display: none;
+        }
     }
 
     @include media(910px) {

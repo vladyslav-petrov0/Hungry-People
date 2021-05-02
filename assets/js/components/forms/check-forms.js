@@ -1,7 +1,9 @@
 const checkForms = () => {
-    const btnSubmit = qSel('.btn--book');
+    const submitBtns = qSelA('.btn--form');
 
-    btnSubmit.addEventListener('click', submitForm);
+    for (let btn of submitBtns) {
+        btn.addEventListener('click', submitForm);
+    }
 
     function submitForm(e) {
         const formBlock = this.parentNode,
@@ -10,9 +12,10 @@ const checkForms = () => {
             formPeople = qSel('.select__hidden--people', formBlock),
             formTime = qSel('.select__hidden--time', formBlock),
             formDate = qSel('.form__elem--date', formBlock),
-            formName = qSel('.form__elem--name', formBlock);
+            formName = qSel('.form__elem--name', formBlock),
+            formMessage = qSel('.form__elem--message', formBlock);
 
-        const nameReg = /^[a-z]{2,60}$/,
+        const nameReg = /^[a-z0-9]{2,60}$/,
             emailReg = /^[a-z0-9][a-z0-9.-_]{2,62}[a-z0-9][@][a-z0-9]{1,30}[.][a-z]{2,10}([.][a-z]{2,10})?$/,
             phoneReg = /^[+][0-9]{3}[(][0-9]{2}[)][0-9]{2}[-][0-9]{2}[-][0-9]{3}$/,
             peopleReg = /^[0-9]{1,2}$/,
@@ -25,12 +28,22 @@ const checkForms = () => {
             [formEmail, emailReg],
             [formPeople, peopleReg],
             [formTime, timeReg],
-            [formDate, dateReg]
+            [formDate, dateReg],
+            [formMessage, nameReg]
         ];
         
         const validInputFields = () => {
             for (let form of forms) {
+                if (!form[0]) continue;
+
                 if (checkByReg(form[0], form[1]) != 0) {
+                    const showInputError = (item) => {
+                        const formSection = item.closest('.form__section');
+            
+                        formSection.classList.add('wrong-input');
+                        formSection.classList.add('selected');
+                    }
+
                     showInputError(form[0]);
                     e.preventDefault();
 
@@ -44,7 +57,6 @@ const checkForms = () => {
                     };
 
                     changeBtnColor();
-                    
                 }
             }
         }
@@ -52,19 +64,14 @@ const checkForms = () => {
         validInputFields();
         listenForValidInput();
 
-        function showInputError(item) {
-            const formSection = item.closest('.form__section');
-
-            formSection.classList.add('wrong-input');
-            formSection.classList.add('selected');
-        }
-
         function listenForValidInput() {
             for (let form of forms) {
-                if (form[0].tagName == 'INPUT') {
+                if (!form[0]) continue;
+
+                if (form[0].tagName == 'INPUT' || form[0].tagName == 'TEXTAREA') {
                     form[0].addEventListener('input', () => {
                         setTimeout(() => {
-                            if (checkByReg(form[0], form[1]) == 0) {
+                            if (!checkByReg(form[0], form[1])) {
                                 hideInputError(form[0]);
                             }
                         }, 1);

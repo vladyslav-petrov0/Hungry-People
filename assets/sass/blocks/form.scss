@@ -10,9 +10,6 @@
         align-items: center;
 
         @include media(550px) {
-            flex-direction: column;
-            align-items: flex-start;
-
             width: 100%;
         }
     }
@@ -121,6 +118,10 @@
 
     &:nth-child(-n+3) {
         flex: 1 1 30%;
+
+        @include media(550px) {
+            flex: 1 1 100%;
+        }
     }
 
     @include media(550px) {

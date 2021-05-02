@@ -20,8 +20,7 @@ const btnWave = () => {
 
             }, 100);
     
-            const wave = document.createElement('span');
-            wave.classList.add('wave-effect');
+            const wave = createNodeWithClass('span', 'wave-effect');
             btn.append(wave);
     
             const btnParams = parsF(styles(btn).width) + 'px';

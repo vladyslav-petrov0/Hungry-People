@@ -24,7 +24,13 @@ function getElemTransition(el) {
     return parsF(styles(el).transitionDuration);
 }
 
-window.addEventListener('load', (e) => {
+function createNodeWithClass(type, ...className) {
+    const node = document.createElement(type);
+    node.classList.add(...className);
+    return node;
+}
+
+window.addEventListener('load', () => {
     setTimeout(() => {
         window.scrollTo(0, 0);
     }, 50);
