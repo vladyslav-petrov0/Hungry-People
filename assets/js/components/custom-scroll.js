@@ -10,7 +10,7 @@ const customScroll = () => {
         const selectMenuHeight = getElemMaxHeight(selectMenu);
 
         const scrollElem = qSel('ul', scrollbar.closest('.select__wrapper'));
-        const scrollElemHeight = scrollElem.getBoundingClientRect().height - selectMenuHeight;
+        const scrollElemHeight = scrollElem.scrollHeight - selectMenuHeight;
 
         setDefaultTransform();
 
@@ -128,4 +128,8 @@ const customScroll = () => {
             scrollElem.classList.remove('smooth');
         }
     }; // scrollbar
+
+    for (let modal of qSelA('.modal')) {
+        modal.classList.add('modal--after-height-calc');
+    }
 };

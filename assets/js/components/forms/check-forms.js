@@ -22,7 +22,7 @@ const checkForms = () => {
             dateReg = /^[0-9]{2}[/][0-9]{2}$/,
             timeReg = /^[0-9]{2}[:][0-9]{2}$/;
         
-        const forms = [
+        const forms = new Map([
             [formName, nameReg],
             [formPhone, phoneReg],
             [formEmail, emailReg],
@@ -30,14 +30,14 @@ const checkForms = () => {
             [formTime, timeReg],
             [formDate, dateReg],
             [formMessage, nameReg]
-        ];
+        ]);
         
         const validInputFields = () => {
             for (let form of forms) {
                 if (!form[0]) continue;
 
                 if (checkByReg(form[0], form[1]) != 0) {
-                    const showInputError = (item) => {
+                    const showInputError = item => {
                         const formSection = item.closest('.form__section');
             
                         formSection.classList.add('wrong-input');

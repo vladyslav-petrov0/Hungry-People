@@ -79,6 +79,10 @@
         margin-bottom: 50px;
     }
 
+    &--modal {
+        margin: 0;
+    }
+
     @include media(1200px) {
         max-width: 500px;
     }

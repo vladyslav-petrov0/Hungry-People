@@ -39,6 +39,7 @@ window.addEventListener('load', () => {
 // == COMPONENTS == 
 
 //= components/wave-effect.js
+//= components/modal.js
 //= components/page-scroll.js
 //= components/burger-menu.js
 //= components/forms.js
@@ -51,8 +52,8 @@ window.addEventListener('load', () => {
 btnWave();
 pageScroll();
 burgerMenu();
+modal();
 forms();
 backgroundSlider();
 tabs();
 clipboard();
-

@@ -1,5 +1,8 @@
 const btnWave = () => {
-    const waveTransition = getElemTransition(qSel('.wave-effect--template')) * 1000;
+    const waveTemplate = qSel('.wave-effect--template');
+    const waveTransition = getElemTransition(waveTemplate) * 1000;
+    waveTemplate.remove();
+    
     const btns = qSelA('.btn--waved');
 
     let timerSeconds = 0;

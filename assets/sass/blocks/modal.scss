@@ -1,0 +1,88 @@
+.modal {
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+    animation-delay: 0.1s;
+
+    &--after-height-calc {
+        display: none;
+    }
+    
+    &.active {
+        display: flex;
+
+        animation-name: showModal;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes showModal {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+}
+
+.modal__content {
+    position: relative;
+
+    padding: 35px;
+    background-color: $color1;
+
+    @include media(570px) {
+        padding: 25px;
+    }
+}
+
+.modal__exit {
+    position: absolute;
+    top: -12.5px;
+    right: -12.5px;
+    
+    width: 35px;
+    height: 35px;
+
+    background-color: $color2;
+
+    &:after, &:before {
+        position: absolute;
+        top: 12%;
+
+        content: '';
+        height: 75%;
+        width: 2px;
+
+        background-color: $color1;
+    }
+
+    &:after {
+        transform: rotate(45deg);
+        left: 49%;
+    }
+
+    &:before {
+        transform: rotate(-45deg);
+        left: 50%;
+    }
+
+    @include media(615px) {
+        top: 0px;
+        right: 0px;
+    }
+}
