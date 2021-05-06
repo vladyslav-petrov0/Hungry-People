@@ -36,6 +36,8 @@ window.addEventListener('load', () => {
     }, 50);
 });
 
+let canScrollPage = 1;
+
 // == COMPONENTS == 
 
 //= components/wave-effect.js

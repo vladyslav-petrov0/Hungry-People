@@ -1,11 +1,10 @@
 const pageScroll = () => {
-    if (window.innerWidth > 1024) {
+    if (window.innerWidth >= 1024) {
 
         const sectionCoords = Array.from(qSelA('._scroll-page')).map(item => getCoords(item)),
             sectionCoordsLength = sectionCoords.length - 1;
         
-        let currentPos = 0,
-            canScroll = 0;
+        let currentPos = 0;
 
         disableUnnecessaryScroll();
         
@@ -14,7 +13,7 @@ const pageScroll = () => {
         }
 
         window.addEventListener('wheel', (e) => {
-            if (!canScroll) {
+            if (canScrollPage) {
                 changeCurrentPos(e.deltaY > 0);
         
                 if (currentPos > sectionCoordsLength) {
@@ -30,7 +29,7 @@ const pageScroll = () => {
 
         function setScrollByButton(elem) {
             elem.addEventListener('click', (e) => {
-                if (!canScroll) {
+                if (canScrollPage) {
                     disableRandomScroll();
                     changeCurrentPos(elem.classList.contains('arrow--down'));
                     scrollToElem();
@@ -45,10 +44,15 @@ const pageScroll = () => {
         }
 
         function disableRandomScroll() {
-            canScroll = 1;
+            canScrollPage = 0;
+
             setTimeout(() => {
-                canScroll = 0
-            }, 1000)
+                const modalWindowIsActive = Array.from(qSelA('.modal')).find(item => item.classList.contains('active'));
+                
+                if (!modalWindowIsActive) {
+                    canScrollPage = 1;
+                };
+            }, 1000);
         }
 
         function changeCurrentPos(condition) {
@@ -71,11 +75,11 @@ const pageScroll = () => {
             const noScrollElems = qSelA('.select__menu');
             for (let item of noScrollElems) {
                 item.addEventListener('mouseover', () => {
-                    canScroll = 1;
+                    canScrollPage = 0;
     
                     item.addEventListener('mouseout', function outOfElem() {
-                        canScroll = 0;
-    
+                        canScrollPage = 1;
+
                         item.removeEventListener('mouseout', outOfElem);
                     });
                 });

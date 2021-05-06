@@ -12,7 +12,7 @@
 
     width: auto;
 
-    @include media(768px) {
+    @include media(1024px) {
         max-height: 125px;
     }
 }
@@ -41,6 +41,6 @@
     }
 
     &.smooth {
-        transition: opacity 0.3s ease, width 0.3s ease, transform 0.1s ease;
+        transition: opacity 0.3s ease, width 0.3s ease, transform 0.3s ease;
     }
 }

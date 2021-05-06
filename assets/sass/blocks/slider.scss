@@ -52,6 +52,7 @@
 
     @include media(768px) {
         background-attachment: local;
+        transition: none;
     }
 
     &--current {

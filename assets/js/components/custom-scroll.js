@@ -1,120 +1,80 @@
 const customScroll = () => {
-    const scrollbarElems = qSelA('.scrollbar__elem');
+    const scrollbars = qSelA('.scrollbar__elem');
 
-    for (let scrollbar of scrollbarElems) {
+    for (let scrollbar of scrollbars) {
 
         const scrollbarHeight = getElemHeight(scrollbar),
-            trackHeight = getElemMaxHeight(scrollbar.parentNode),
-            selectMenu = scrollbar.closest('.select__menu');
+            scrollbarTrackHeight = getElemMaxHeight(scrollbar.parentNode);
 
-        const selectMenuHeight = getElemMaxHeight(selectMenu);
+        const scrollWrapper = scrollbar.closest('.select__menu'),
+            scrollWrapperHeight = getElemMaxHeight(scrollWrapper);
 
-        const scrollElem = qSel('ul', scrollbar.closest('.select__wrapper'));
-        const scrollElemHeight = scrollElem.scrollHeight - selectMenuHeight;
+        const scrollElem = qSel('ul', scrollWrapper),
+            scrollElemHeight = scrollElem.scrollHeight - scrollWrapperHeight;
 
-        setDefaultTransform();
-
-        scrollbar.addEventListener('mousedown', grabScrollbar);
-        
-        if (!isDeviceMobile()) {
-            selectMenu.addEventListener('wheel', wheelScroll);
-        } else {
-            selectMenu.addEventListener('touchstart', grabScrollbar);
+        if (scrollbar.style.transform == '') {
+            scrollbar.style.transform = 'translateY(0px)';
         }
 
+        scrollbar.addEventListener('mousedown', grabScrollbar);
+        scrollWrapper.addEventListener('touchstart', grabScrollbar);
+        scrollWrapper.addEventListener('wheel', wheelScroll);
+
         function grabScrollbar(e) {
-            
+            const touch = e.touches;
+
             let scrollbarPos = 0,
-                scrollbarPosLast = !isDeviceMobile() ? e.layerY : e.touches[0].clientY;
-            
-            if (!isDeviceMobile()) {
-                selectMenu.addEventListener('mousemove', startMoving);
-            } else {
-                selectMenu.addEventListener('touchmove', startMoving);
-                document.body.style.overflow = 'hidden';
-            }
+                scrollbarPosPrev = touch?.[0].clientY || e.layerY;
 
-            function startMoving(e) {
+            const startMoving = (e) => {
                 removeSmooth();
-                scrollbarPos = (!isDeviceMobile() ? e.layerY : e.touches[0].clientY) - scrollbarPosLast;
-                scrollbarPos = isDeviceMobile() ? Math.round(scrollbarPos) : scrollbarPos;
 
-                if (!isDeviceMobile()) {
-                    scrollbar.style.transform = `translateY(${calcCurrentScrollbarPos() + scrollbarPos}px)`;
-                } else {
-                    scrollElem.style.transform = `translateY(${calcCurrentScrollElemPos() + scrollbarPos}px)`;
-                }
+                scrollbarPos = (e.touches?.[0].clientY || e.layerY) - scrollbarPosPrev;
+                scrollbarPos = touch ? -Math.round(scrollbarPos) : scrollbarPos;
 
-                limitPos();
-                scrollbarPosLast = !isDeviceMobile() ? e.layerY : e.touches[0].clientY;
+                scrollbar.style.transform = `translateY(${getCurrentScrollbarPos() + scrollbarPos}px)`;
 
-                setPosScrollElem();
+                limitScrollbarPos();
+                scrollbarPosPrev = e.touches?.[0].clientY || e.layerY;
+                setScrollElemPos();
             }
 
-            setListenerOfStopMoving();
+            scrollWrapper.addEventListener(touch ? 'touchmove' : 'mousemove', startMoving);
 
-            function setListenerOfStopMoving() {
-                if (!isDeviceMobile()) {
-                    document.addEventListener('mouseup', () => {
-                        selectMenu.removeEventListener('mousemove', startMoving);
-                    });
-                } else {
-                    document.addEventListener('touchend', () => {
-                        selectMenu.removeEventListener('touchmove', startMoving);
-                        document.body.style.overflow = '';
-                    });
-                }
+            document.body.style.overflow = 'hidden';
+
+            const listenToStopMoving = () => {
+                document.addEventListener(touch ? 'touchend' : 'mouseup', () => {
+                    scrollWrapper.removeEventListener(touch ? 'touchmove' : 'mousemove', startMoving);
+                });
             }
 
-        } //grabScrollbar
-
-        function setDefaultTransform() {
-            if (scrollbar.style.transform == '') scrollbar.style.transform = 'translateY(0px)';
-            if (scrollElem.style.transform == '' && isDeviceMobile()) scrollElem.style.transform = 'translateY(0px)';
+            listenToStopMoving();
         }
 
         function wheelScroll(e) {
             addSmooth();
-            scrollbar.style.transform = `translateY(${calcCurrentScrollbarPos() + e.deltaY / 10}px)`;
-            limitPos();
-            setPosScrollElem();
+            scrollbar.style.transform = `translateY(${getCurrentScrollbarPos() + e.deltaY / 7}px)`;
+            limitScrollbarPos();
+            setScrollElemPos();
         }
 
-        function calcCurrentScrollbarPos() {
+        function getCurrentScrollbarPos() {
             return +scrollbar.style.transform.match(/-*[0-9]+/)[0];
         }
 
-        function calcCurrentScrollElemPos() {
-            return +scrollElem.style.transform.match(/-*[0-9]+/)[0];
+        function setScrollElemPos() {
+            const scrollbarPercent = getCurrentScrollbarPos() * 100 / (scrollbarTrackHeight - scrollbarHeight);
+            scrollElem.style.transform = `translateY(-${scrollbarPercent * (scrollElemHeight / 100)}px)`;
         }
 
-        function setPosScrollElem() {
-            if (!isDeviceMobile()) {
-                const scrollbarPercent = calcCurrentScrollbarPos() * 100 / (trackHeight - scrollbarHeight);
-                scrollElem.style.transform = `translateY(-${scrollbarPercent * (scrollElemHeight / 100)}px)`;
-            } else {
-                const scrollbarPercent = calcCurrentScrollElemPos() * 100 / scrollElemHeight;
-                scrollbar.style.transform = `translateY(${Math.abs(scrollbarPercent * ((trackHeight - scrollbarHeight) / 100))}px)`;
+        function limitScrollbarPos() {
+            if (getCurrentScrollbarPos() < 0) {
+                scrollbar.style.transform = `translateY(0px)`;
             }
-        }
 
-        function limitPos() {
-            if (!isDeviceMobile()) {
-                if (calcCurrentScrollbarPos() < 0) {
-                    scrollbar.style.transform = `translateY(0px)`;
-                }
-    
-                if (calcCurrentScrollbarPos() > trackHeight - scrollbarHeight) {
-                    scrollbar.style.transform = `translateY(${trackHeight - scrollbarHeight}px)`;
-                }
-            } else {
-                if (calcCurrentScrollElemPos() > 0) {
-                    scrollElem.style.transform = `translateY(0px)`;
-                }
-    
-                if (Math.abs(calcCurrentScrollElemPos()) > scrollElemHeight) {
-                    scrollElem.style.transform = `translateY(-${scrollElemHeight}px)`;
-                }
+            if (getCurrentScrollbarPos() > scrollbarTrackHeight - scrollbarHeight) {
+                scrollbar.style.transform = `translateY(${scrollbarTrackHeight - scrollbarHeight}px)`;
             }
         }
 
@@ -127,9 +87,22 @@ const customScroll = () => {
             scrollbar.classList.remove('smooth');
             scrollElem.classList.remove('smooth');
         }
-    }; // scrollbar
+    };
 
+    /* modal by default are display: none, this code allows
+    scrollbars work in modals correctly */
     for (let modal of qSelA('.modal')) {
         modal.classList.add('modal--after-height-calc');
     }
 };
+
+
+// function calcCurrentScrollElemPos() {
+//     return +scrollElem.style.transform.match(/-*[0-9]+/)[0];
+// }
+
+// if (!isDeviceMobile()) {
+    // } else {
+    //     const scrollbarPercent = calcCurrentScrollElemPos() * 100 / scrollElemHeight;
+    //     scrollbar.style.transform = `translateY(${Math.abs(scrollbarPercent * ((scrollbarTrackHeight - scrollbarHeight) / 100))}px)`;
+    // }

@@ -64,7 +64,7 @@
         user-select: none;
         
         &.smooth {
-            transition: transform 0.1s ease;
+            transition: transform 0.3s ease;
         }
     }
 
@@ -85,12 +85,12 @@
     &.extended {
         height: 195px;
 
-        @include media(768px) {
+        @include media(1024px) {
             height: 125px;
         }
     }
 
-    @include media(768px) {
+    @include media(1024px) {
         max-height: 125px;
     }
 }
