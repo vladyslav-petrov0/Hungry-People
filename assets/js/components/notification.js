@@ -10,19 +10,24 @@ const showNotification = (messageText, ms, event) => {
     
         const setAppropriateElemPos = () => {
             const elemActualHeight = elemContainer.getBoundingClientRect().height;
-            const isEnoughXSpace = event.pageX + elemContainer.getBoundingClientRect().width <= window.innerWidth;
+
+            const getElemPagePos = (elem) => {
+                const rect = elem.getBoundingClientRect();
+                return {
+                    y: rect.top + pageYOffset,
+                    x: rect.left + pageXOffset
+                }
+            }
+
+            const elemCoords = getElemPagePos(event.target);
 
             if (isEnoughYSpace) {
-                elemContainer.style.top = `${event.pageY - (elemActualHeight + 10)}px`;
+                elemContainer.style.top = `${elemCoords.y - (elemActualHeight + 10)}px`;
             } else {
-                elemContainer.style.top = `${event.pageY + (elemActualHeight + 10)}px`;
+                elemContainer.style.top = `${elemCoords.y + (elemActualHeight + 10)}px`;
             }
 
-            if (!isEnoughXSpace) {
-                elemContainer.style.left = `${window.innerWidth - elemContainer.getBoundingClientRect().width}px`;
-            } else {
-                elemContainer.style.left = `${event.pageX - 18}px`;
-            }
+            elemContainer.style.left = `${(elemCoords.x + (event.target.getBoundingClientRect().width / 2)) - 18}px`;
         };
 
         setAppropriateElemPos();

@@ -30,14 +30,6 @@ function createNodeWithClass(type, ...className) {
     return node;
 }
 
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        window.scrollTo(0, 0);
-    }, 50);
-});
-
-let canScrollPage = 1;
-
 // == COMPONENTS == 
 
 //= components/wave-effect.js
@@ -50,6 +42,14 @@ let canScrollPage = 1;
 //= components/clipboard.js
 
 // == MAIN CODE ==
+
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+    }, 50);
+});
+
+const currentNoScrollSessions = [];
 
 btnWave();
 pageScroll();

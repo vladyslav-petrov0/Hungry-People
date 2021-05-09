@@ -95,6 +95,8 @@ const formsSelect = () => {
             function closeSelect(itm = item, selMenu = selectMenu) {
                 itm.classList.remove('extended');
                 selMenu.classList.remove('extended');
+                
+                currentNoScrollSessions.pop();
 
                 removeWrongInputNotification();
 
@@ -113,6 +115,8 @@ const formsSelect = () => {
             function showSelect() {
                 selectMenu.classList.add('extended');
                 item.classList.add('extended');
+
+                currentNoScrollSessions.push(1);
             }
 
         });

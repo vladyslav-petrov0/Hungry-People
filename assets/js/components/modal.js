@@ -6,16 +6,18 @@ const modal = () => {
 
         const showModal = (event) => {
             modal.classList.add('active');
+            
             document.body.style.overflow = 'hidden';
-            canScrollPage = 0;
+            currentNoScrollSessions.push(1);
 
             const removeModal = (event) => {
                 const btnModalExit = qSel('.modal__exit', modal);
 
                 if (event.target == btnModalExit || event.target == modal) {
                     modal.classList.remove('active');
+
                     document.body.style.overflow = '';
-                    canScrollPage = 1;
+                    currentNoScrollSessions.pop();
                     
                     document.removeEventListener('click', removeModal);
                 }

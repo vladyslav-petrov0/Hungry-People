@@ -12,25 +12,45 @@ const customScroll = () => {
         const scrollElem = qSel('ul', scrollWrapper),
             scrollElemHeight = scrollElem.scrollHeight - scrollWrapperHeight;
 
+        const scrollbarTrackHeightToScrollElemRatio = (scrollElemHeight / (scrollbarTrackHeight - scrollbarHeight)) + 1;
+
         if (scrollbar.style.transform == '') {
             scrollbar.style.transform = 'translateY(0px)';
         }
 
-        scrollbar.addEventListener('mousedown', grabScrollbar);
-        scrollWrapper.addEventListener('touchstart', grabScrollbar);
-        scrollWrapper.addEventListener('wheel', wheelScroll);
+        const getCurrentScrollbarPos = () => +scrollbar.style.transform.match(/-*[0-9]+(.[0-9])*/)[0];
+
+        const addSmooth = () => {
+            scrollbar.classList.add('smooth');
+            scrollElem.classList.add('smooth');
+        }
+
+        const removeSmooth = () => {
+            scrollbar.classList.remove('smooth');
+            scrollElem.classList.remove('smooth');
+        }
+
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            scrollWrapper.addEventListener('touchstart', grabScrollbar);
+        } else {
+            scrollWrapper.addEventListener('wheel', wheelScroll);
+            scrollbar.addEventListener('mousedown', grabScrollbar);
+        }
 
         function grabScrollbar(e) {
             const touch = e.touches;
+
+            scrollWrapper.removeEventListener('wheel', wheelScroll);
 
             let scrollbarPos = 0,
                 scrollbarPosPrev = touch?.[0].clientY || e.layerY;
 
             const startMoving = (e) => {
+                e.preventDefault();
                 removeSmooth();
 
                 scrollbarPos = (e.touches?.[0].clientY || e.layerY) - scrollbarPosPrev;
-                scrollbarPos = touch ? -Math.round(scrollbarPos) : scrollbarPos;
+                scrollbarPos = touch ? -(scrollbarPos / scrollbarTrackHeightToScrollElemRatio) : scrollbarPos;
 
                 scrollbar.style.transform = `translateY(${getCurrentScrollbarPos() + scrollbarPos}px)`;
 
@@ -41,11 +61,11 @@ const customScroll = () => {
 
             scrollWrapper.addEventListener(touch ? 'touchmove' : 'mousemove', startMoving);
 
-            document.body.style.overflow = 'hidden';
-
             const listenToStopMoving = () => {
-                document.addEventListener(touch ? 'touchend' : 'mouseup', () => {
+                document.addEventListener(touch ? 'touchend' : 'mouseup', function f() {
                     scrollWrapper.removeEventListener(touch ? 'touchmove' : 'mousemove', startMoving);
+                    document.removeEventListener(touch ? 'touchend' : 'mouseup', f);
+                    scrollWrapper.addEventListener('wheel', wheelScroll);
                 });
             }
 
@@ -53,14 +73,11 @@ const customScroll = () => {
         }
 
         function wheelScroll(e) {
+            e.preventDefault();
             addSmooth();
             scrollbar.style.transform = `translateY(${getCurrentScrollbarPos() + e.deltaY / 7}px)`;
             limitScrollbarPos();
             setScrollElemPos();
-        }
-
-        function getCurrentScrollbarPos() {
-            return +scrollbar.style.transform.match(/-*[0-9]+/)[0];
         }
 
         function setScrollElemPos() {
@@ -77,32 +94,12 @@ const customScroll = () => {
                 scrollbar.style.transform = `translateY(${scrollbarTrackHeight - scrollbarHeight}px)`;
             }
         }
-
-        function addSmooth() {
-            scrollbar.classList.add('smooth');
-            scrollElem.classList.add('smooth');
-        }
-
-        function removeSmooth() {
-            scrollbar.classList.remove('smooth');
-            scrollElem.classList.remove('smooth');
-        }
+        
     };
 
-    /* modal by default are display: none, this code allows
-    scrollbars work in modals correctly */
+    /* modal by default are display: none, this code calculate
+    scroll-elements in modal windows and then hide modal windows.*/
     for (let modal of qSelA('.modal')) {
         modal.classList.add('modal--after-height-calc');
     }
 };
-
-
-// function calcCurrentScrollElemPos() {
-//     return +scrollElem.style.transform.match(/-*[0-9]+/)[0];
-// }
-
-// if (!isDeviceMobile()) {
-    // } else {
-    //     const scrollbarPercent = calcCurrentScrollElemPos() * 100 / scrollElemHeight;
-    //     scrollbar.style.transform = `translateY(${Math.abs(scrollbarPercent * ((scrollbarTrackHeight - scrollbarHeight) / 100))}px)`;
-    // }

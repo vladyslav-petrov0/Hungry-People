@@ -56,6 +56,8 @@ const forms = () => {
         item.parentNode.classList.remove('selected');
         item.parentNode.classList.remove('wrong-input');
         item.value = '';
+        
+        currentNoScrollSessions.pop();
     }
 
 }; // end

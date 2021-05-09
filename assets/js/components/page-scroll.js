@@ -5,15 +5,13 @@ const pageScroll = () => {
             sectionCoordsLength = sectionCoords.length - 1;
         
         let currentPos = 0;
-
-        disableUnnecessaryScroll();
         
         for (let item of qSelA('.arrow-scroll')) {
             setScrollByButton(item);
         }
 
         window.addEventListener('wheel', (e) => {
-            if (canScrollPage) {
+            if (!currentNoScrollSessions.length) {
                 changeCurrentPos(e.deltaY > 0);
         
                 if (currentPos > sectionCoordsLength) {
@@ -29,10 +27,10 @@ const pageScroll = () => {
 
         function setScrollByButton(elem) {
             elem.addEventListener('click', (e) => {
-                if (canScrollPage) {
-                    disableRandomScroll();
+                if (!currentNoScrollSessions.length) {
                     changeCurrentPos(elem.classList.contains('arrow--down'));
                     scrollToElem();
+                    disableRandomScroll();
                 }
             });
         }
@@ -44,14 +42,10 @@ const pageScroll = () => {
         }
 
         function disableRandomScroll() {
-            canScrollPage = 0;
+            currentNoScrollSessions.push(1);
 
             setTimeout(() => {
-                const modalWindowIsActive = Array.from(qSelA('.modal')).find(item => item.classList.contains('active'));
-                
-                if (!modalWindowIsActive) {
-                    canScrollPage = 1;
-                };
+                currentNoScrollSessions.pop();
             }, 1000);
         }
 
@@ -71,21 +65,6 @@ const pageScroll = () => {
             });
         }
 
-        function disableUnnecessaryScroll() {
-            const noScrollElems = qSelA('.select__menu');
-            for (let item of noScrollElems) {
-                item.addEventListener('mouseover', () => {
-                    canScrollPage = 0;
-    
-                    item.addEventListener('mouseout', function outOfElem() {
-                        canScrollPage = 1;
+    }
 
-                        item.removeEventListener('mouseout', outOfElem);
-                    });
-                });
-            }
-        }
-
-    }  // viewport if
-
-}; // end
+};

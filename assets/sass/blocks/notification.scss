@@ -2,7 +2,8 @@
     position: absolute;
     z-index: 9999;
 
-    width: 115px;
+    max-width: 115px;
+    width: auto;
     
     @include text($font2, normal, 500);
     font-size: 12px;
