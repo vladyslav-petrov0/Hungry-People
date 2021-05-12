@@ -8,8 +8,6 @@ const animForms = () => {
             if (!nodeLabel.classList.contains('chosen')) {
                 nodeLabel.classList.add('chosen');
                 item.parentNode.classList.add('selected');
-
-                currentNoScrollSessions.push(1);
             };
 
             item.addEventListener('blur', function clickOut(e) {

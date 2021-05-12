@@ -1,7 +1,8 @@
 const showNotification = (messageText, ms, event) => {
     if (!qSel('.notification')) {
-        const isEnoughYSpace = event.clientY >= ((window.innerHeight / 100) * 35),
-            elemContainer = createNodeWithClass('span', 'notification'),
+        const isEnoughYSpace = event.clientY >= ((window.innerHeight / 100) * 35);
+
+        const elemContainer = createNodeWithClass('span', 'notification'),
             elem = createNodeWithClass('span', (isEnoughYSpace ? 'notification__top' : 'notification__bottom'));
 
         elemContainer.append(elem);
@@ -10,15 +11,6 @@ const showNotification = (messageText, ms, event) => {
     
         const setAppropriateElemPos = () => {
             const elemActualHeight = elemContainer.getBoundingClientRect().height;
-
-            const getElemPagePos = (elem) => {
-                const rect = elem.getBoundingClientRect();
-                return {
-                    y: rect.top + pageYOffset,
-                    x: rect.left + pageXOffset
-                }
-            }
-
             const elemCoords = getElemPagePos(event.target);
 
             if (isEnoughYSpace) {
@@ -34,8 +26,10 @@ const showNotification = (messageText, ms, event) => {
         elemContainer.classList.add('show-fade');
 
         setTimeout(() => {
-            elemContainer.classList.add('close-fade');
-            setTimeout(() => elemContainer.remove(), 600);
+            elemContainer.classList.remove('show-fade');
+
+            const elemTransitionDuration = getElemTransition(elemContainer) * 1000;
+            setTimeout(() => elemContainer.remove(), elemTransitionDuration);
         }, ms);
     }
 };

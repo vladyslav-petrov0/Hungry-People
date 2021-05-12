@@ -12,14 +12,13 @@
     padding: 5px;
     background-color: $colorSec2;
 
-    animation-duration: 0.7s;
-    animation-timing-function: ease-out;
-    animation-direction: alternate;
+    opacity: 0;
+    transition: opacity 0.7s ease-out;
 
     span {
         position: relative;
         top: 0;
-        left: 0;   
+        left: 0;
 
         @include noSelect;
     }
@@ -50,28 +49,6 @@
     }
 
     &.show-fade {
-        animation-name: showFade;
-    }
-
-    &.close-fade {
-        animation-name: closeFade;
-    }
-
-    @keyframes showFade {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-
-    @keyframes closeFade {
-        0% {
-            opacity: 1;
-        }
-        100% {
-            opacity: 0;
-        }
+        opacity: 1;
     }
 }

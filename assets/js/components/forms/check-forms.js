@@ -6,32 +6,17 @@ const checkForms = () => {
     }
 
     function submitForm(e) {
-        const formBlock = this.parentNode,
-            formPhone = qSel('.form__elem--phone', formBlock),
-            formEmail = qSel('.form__elem--email', formBlock),
-            formPeople = qSel('.select__hidden--people', formBlock),
-            formTime = qSel('.select__hidden--time', formBlock),
-            formDate = qSel('.form__elem--date', formBlock),
-            formName = qSel('.form__elem--name', formBlock),
-            formMessage = qSel('.form__elem--message', formBlock);
+        const qSelForm = (el) => qSel(el, this.parentNode);
+        
+        const forms = new Map()
+        .set(qSelForm('.form__elem--name'), /^[a-z0-9]{2,60}$/)
+        .set(qSelForm('.form__elem--phone'), /^[+][0-9]{3}[(][0-9]{2}[)][0-9]{2}[-][0-9]{2}[-][0-9]{3}$/)
+        .set(qSelForm('.form__elem--email'), /^[a-z0-9][a-z0-9.-_]{2,62}[a-z0-9][@][a-z0-9]{1,30}[.][a-z]{2,10}([.][a-z]{2,10})?$/)
+        .set(qSelForm('.select__hidden--people'), /^[0-9]{1,2}$/)
+        .set(qSelForm('.select__hidden--time'), /^[0-9]{2}[:][0-9]{2}$/)
+        .set(qSelForm('.form__elem--date'), /^[0-9]{2}[/][0-9]{2}$/)
+        .set(qSelForm('.form__elem--message'), /^[a-z0-9]{2,60}$/);
 
-        const nameReg = /^[a-z0-9]{2,60}$/,
-            emailReg = /^[a-z0-9][a-z0-9.-_]{2,62}[a-z0-9][@][a-z0-9]{1,30}[.][a-z]{2,10}([.][a-z]{2,10})?$/,
-            phoneReg = /^[+][0-9]{3}[(][0-9]{2}[)][0-9]{2}[-][0-9]{2}[-][0-9]{3}$/,
-            peopleReg = /^[0-9]{1,2}$/,
-            dateReg = /^[0-9]{2}[/][0-9]{2}$/,
-            timeReg = /^[0-9]{2}[:][0-9]{2}$/;
-        
-        const forms = new Map([
-            [formName, nameReg],
-            [formPhone, phoneReg],
-            [formEmail, emailReg],
-            [formPeople, peopleReg],
-            [formTime, timeReg],
-            [formDate, dateReg],
-            [formMessage, nameReg]
-        ]);
-        
         const validInputFields = () => {
             for (let form of forms) {
                 if (!form[0]) continue;
@@ -80,5 +65,5 @@ const checkForms = () => {
             }
         }
 
-    } //submit forms
+    }
 };

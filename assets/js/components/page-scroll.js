@@ -1,70 +1,66 @@
 const pageScroll = () => {
-    if (window.innerWidth >= 1024) {
+    const scrollSections = Array.from(qSelA('._scroll-page')),
+        sectionCoords = scrollSections.map(item => getElemPagePos(item).y),
+        sectionCoordsLength = sectionCoords.length - 1;
+    
+    let currentPos = 0;
 
-        const sectionCoords = Array.from(qSelA('._scroll-page')).map(item => getCoords(item)),
-            sectionCoordsLength = sectionCoords.length - 1;
-        
-        let currentPos = 0;
-        
-        for (let item of qSelA('.arrow-scroll')) {
-            setScrollByButton(item);
-        }
+    const scrollToElem = () => {
+        const closeInputFields = () => {
+            const fields = qSelA('input, textarea')
+            fields.forEach(item => item.blur())
+        };
 
-        window.addEventListener('wheel', (e) => {
-            if (!currentNoScrollSessions.length) {
-                changeCurrentPos(e.deltaY > 0);
-        
-                if (currentPos > sectionCoordsLength) {
-                    currentPos = sectionCoordsLength;
-                } else if (currentPos < 0) {
-                    currentPos = 0;
-                } else {
-                    scrollToElem();
-                    disableRandomScroll();
-                }
-            }
+        closeInputFields();
+
+        scrollTo({
+            top: sectionCoords[currentPos],
+            left: 0,
+            behavior: 'smooth'
         });
 
-        function setScrollByButton(elem) {
-            elem.addEventListener('click', (e) => {
-                if (!currentNoScrollSessions.length) {
-                    changeCurrentPos(elem.classList.contains('arrow--down'));
-                    scrollToElem();
-                    disableRandomScroll();
-                }
-            });
-        }
-
-        function getCoords(el) {
-            const rect = el.getBoundingClientRect();
-        
-            return rect.top + pageYOffset;
-        }
-
-        function disableRandomScroll() {
+        const disableRandomScroll = () => {
             currentNoScrollSessions.push(1);
-
+    
             setTimeout(() => {
                 currentNoScrollSessions.pop();
             }, 1000);
+        };
+
+        disableRandomScroll();
+    };
+
+    const scrollPageByWheel = (e) => {
+        if (!currentNoScrollSessions.length) {
+            (e.deltaY > 0) ? currentPos++ : currentPos--;
+
+            if (currentPos > sectionCoordsLength) {
+                currentPos = sectionCoordsLength;
+            } else if (currentPos < 0) {
+                currentPos = 0;
+            } else {
+                scrollToElem();
+            }
         }
+    };
 
-        function changeCurrentPos(condition) {
-            if (condition) { 
-                currentPos++ 
-            } else { 
-                currentPos-- 
-            };
-        }
+    const setScrollPageDownByBtn = (btn) => {
+        btn.addEventListener('click', (e) => {
+            if (!currentNoScrollSessions.length) {
+                currentPos++;
+                scrollToElem();
+            }
+        });
+    };
+    
+    const bindBtnToScrollSection = (btn, scrollTarget) => {
+        btn.addEventListener('click', (e) => {
+            currentPos = scrollSections.indexOf(scrollTarget);
+            scrollToElem();
+        });
+    };
 
-        function scrollToElem() {
-            scrollTo({
-                top: sectionCoords[currentPos],
-                left: 0,
-                behavior: 'smooth'
-            });
-        }
-
-    }
-
+    window.addEventListener('wheel', scrollPageByWheel);
+    qSelA('.arrow-scroll').forEach(item => setScrollPageDownByBtn(item));
+    anchorElems.forEach((value, key) => bindBtnToScrollSection(key, value));
 };

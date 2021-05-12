@@ -24,12 +24,12 @@
     &.active {
         display: flex;
 
-        animation-name: showModal;
+        animation-name: fadeShowElem;
         animation-direction: normal;
         animation-fill-mode: forwards;
     }
 
-    @keyframes showModal {
+    @keyframes fadeShowElem {
         0% {
             opacity: 0;
         }

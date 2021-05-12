@@ -1,7 +1,13 @@
 const btnWave = () => {
-    const waveTemplate = qSel('.wave-effect--template');
-    const waveTransition = getElemTransition(waveTemplate) * 1000;
-    waveTemplate.remove();
+    
+    const getWaveTemplateTransition = () => {
+        const waveTemplate = createNodeWithClass('span', 'wave-effect', 'wave-effect--template');
+        document.body.append(waveTemplate);
+        const waveTransition = getElemTransition(waveTemplate) * 1000;
+        waveTemplate.remove();
+        return waveTransition;
+    };
+    const waveTransition = getWaveTemplateTransition();
     
     const btns = qSelA('.btn--waved');
 

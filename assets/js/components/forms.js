@@ -28,7 +28,7 @@ const forms = () => {
     }
 
     function clearForms() {
-        for (let item of qSelA('input')) {
+        for (let item of qSelA('input, textarea')) {
             item.value = '';
         }
     }
@@ -56,8 +56,6 @@ const forms = () => {
         item.parentNode.classList.remove('selected');
         item.parentNode.classList.remove('wrong-input');
         item.value = '';
-        
-        currentNoScrollSessions.pop();
     }
 
 }; // end

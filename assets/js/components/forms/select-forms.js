@@ -96,7 +96,8 @@ const formsSelect = () => {
                 itm.classList.remove('extended');
                 selMenu.classList.remove('extended');
                 
-                currentNoScrollSessions.pop();
+                // currentNoScrollSessions.pop();
+                currentNoScrollSessions.splice(currentNoScrollSessions.indexOf('field'), 1);
 
                 removeWrongInputNotification();
 
@@ -116,7 +117,7 @@ const formsSelect = () => {
                 selectMenu.classList.add('extended');
                 item.classList.add('extended');
 
-                currentNoScrollSessions.push(1);
+                currentNoScrollSessions.push('field');
             }
 
         });

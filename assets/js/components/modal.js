@@ -8,7 +8,7 @@ const modal = () => {
             modal.classList.add('active');
             
             document.body.style.overflow = 'hidden';
-            currentNoScrollSessions.push(1);
+            currentNoScrollSessions.push('modal');
 
             const removeModal = (event) => {
                 const btnModalExit = qSel('.modal__exit', modal);
@@ -17,7 +17,7 @@ const modal = () => {
                     modal.classList.remove('active');
 
                     document.body.style.overflow = '';
-                    currentNoScrollSessions.pop();
+                    currentNoScrollSessions.splice(currentNoScrollSessions.indexOf('modal'), 1);
                     
                     document.removeEventListener('click', removeModal);
                 }

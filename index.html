@@ -20,18 +20,18 @@
 
                     <nav class="nav">
                         <ul class="nav__sec  nav--left">
-                            <li><a href="#">HOME</a></li>
-                            <li><a href="#">ABOUT</a></li>
-                            <li><a href="#">TEAM</a></li>
-                            <li><a href="#">BOOKING</a></li>
+                            <li><a href="#" class="_anchor-home">HOME</a></li>
+                            <li><a href="#" class="_anchor-about">ABOUT</a></li>
+                            <li><a href="#" class="_anchor-team">TEAM</a></li>
+                            <li><a href="#" class="_anchor-booking">BOOKING</a></li>
                         </ul>
         
         
                         <ul class="nav__sec  nav--right">
-                            <li><a href="#">MENU</a></li>
-                            <li><a href="#">GALERIE</a></li>
-                            <li><a href="#">EVENTS</a></li>
-                            <li><a href="#">CONTACT</a></li>
+                            <li><a href="#" class="_anchor-menu">MENU</a></li>
+                            <li><a href="#" class="_anchor-galerie">GALERIE</a></li>
+                            <li><a href="#" class="_anchor-events">EVENTS</a></li>
+                            <li><a href="#" class="_anchor-contact">CONTACT</a></li>
                         </ul>
                     </nav>
 
@@ -49,7 +49,7 @@
     
         </header>
     
-        <div class="intro  _scroll-page">
+        <div class="intro  _scroll-page  _anchor-home--target">
     
             <div class="intro__body">
     
@@ -138,7 +138,7 @@
         </div>
     
         <main class="main">
-            <section class="section  section--white  section--about  _scroll-page">
+            <section class="section  section--white  section--about  _scroll-page  _anchor-about--target">
     
                 <div class="container  container--section">
     
@@ -170,7 +170,7 @@
 
             </section>
     
-            <section class="section  section--black  section--master  _scroll-page">
+            <section class="section  section--black  section--master  _scroll-page  _anchor-team--target">
     
                 <div class="container  container--section  container--master">
     
@@ -190,7 +190,7 @@
     
             </section>
     
-            <section class="section  section--book  section--white  _scroll-page">
+            <section class="section  section--book  section--white  _scroll-page  _anchor-booking--target">
     
                 <div class="container  container--section">
     
@@ -411,7 +411,7 @@
     
             </section>
     
-            <section class="section  section--white  section--delicious  _scroll-page">
+            <section class="section  section--white  section--delicious  _scroll-page  _anchor-menu--target">
 
                 <div class="container  container--section  container--delicious">
 
@@ -1752,7 +1752,7 @@
 
             </section>
     
-            <section class="section  section--black  section--private  _scroll-page">
+            <section class="section  section--black  section--private  _scroll-page  _anchor-events--target">
 
                 <div class="container  container--section  container--private">
 
@@ -1781,7 +1781,7 @@
 
             </section>
     
-            <section class="section  section--contact  section--white  _scroll-page">
+            <section class="section  section--contact  section--white  _scroll-page  _anchor-contact--target">
 
                 <div class="container  container--section  container--contact">
 
@@ -1845,10 +1845,11 @@
             </section>
 
         </main>
-    
-        <footer class="footer  _scroll-page">
+
+        <div class="gallery  _scroll-page  _anchor-galerie--target">
         
-            <div class="gallery">
+            <div class="gallery__wrapper">
+
                 <div class="gallery__item">
                     <img src="/assets/img/gallery/1.jpg" alt="">
                 </div>
@@ -1863,7 +1864,7 @@
                 
             </div>
         
-        </footer>
+        </div>
 
         <div class="modal  modal--book">
             <div class="modal__content">
@@ -2045,8 +2046,6 @@
         </div>
 
     </div>
-
-    <span class="wave-effect  wave-effect--template"></span>
 
     <script src="assets/js/app.js"></script> <!-- SCRIPT MAIN JS LOAD -->
 </body>
