@@ -13,11 +13,7 @@ const pageScroll = () => {
 
         closeInputFields();
 
-        scrollTo({
-            top: sectionCoords[currentPos],
-            left: 0,
-            behavior: 'smooth'
-        });
+        scrollSmoothTo(sectionCoords[currentPos]);
 
         const disableRandomScroll = () => {
             currentNoScrollSessions.push(1);

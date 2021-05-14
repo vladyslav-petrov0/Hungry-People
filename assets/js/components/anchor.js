@@ -1,32 +1,22 @@
-const anchor = () => {
-
-    const bindAnchor = (anchorBtn, anchorTarget) => {
-        const scrollToAnchorTarget = (e) => {
-            e.preventDefault();
-
-            const getCenteredYElemPagePos = (el) => {
-                const elemParams = getElemPagePos(el),
-                    defaultElemYPos = elemParams.y,
-                    elemHeight = elemParams.rect.height;
-
-                if (elemHeight >= window.innerHeight) {
-                    return defaultElemYPos;
-                }
-
-                const elemCenteredMargin = (window.innerHeight - elemHeight) / 2;
-                return defaultElemYPos - elemCenteredMargin;
-            };
-
-            scrollTo({
-                top: getCenteredYElemPagePos(anchorTarget),
-                left: 0,
-                behavior: 'smooth'
-            });
-        };
-        anchorBtn.addEventListener('click', scrollToAnchorTarget);
-    };
-
-    for (let item of anchorElems) {
-        bindAnchor(item[0], item[1]);
+class Anchor {
+    constructor(btn, target, navMediator) {
+        this.navMediator = navMediator;
+        this.btn = btn;
+        this.target = target;
+        navMediator.anchor = this;
     }
-};
+
+    scrollToAnchor() {
+        const target = getCenteredYElemPagePos(this.target);
+        this.navMediator.scrollToAnchor(target);
+    }
+}
+
+for (let item of anchorElems) {
+    const anchorElem = new Anchor(item[0], item[1], nav);
+    
+    anchorElem.btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        anchorElem.scrollToAnchor()
+    });
+}
