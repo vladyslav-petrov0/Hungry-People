@@ -7,8 +7,7 @@ class Anchor {
     }
 
     scrollToAnchor() {
-        const target = getCenteredYElemPagePos(this.target);
-        this.navMediator.scrollToAnchor(target);
+        this.navMediator.notify(this, 'scrollToAnchor');
     }
 }
 

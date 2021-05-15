@@ -17,7 +17,7 @@ class BurgerMenu {
         document.body.style.overflow = '';
     };
 
-    getStatus() {
+    getActiveStatus() {
         return this.btn.classList.contains('burger--active');
     }
 }
@@ -25,7 +25,7 @@ class BurgerMenu {
 const burgerMenu = new BurgerMenu(qSel('.burger'), nav);
 
 burgerMenu.btn.addEventListener('click', () => {
-    if (!burgerMenu.getStatus()) {
+    if (!burgerMenu.getActiveStatus()) {
         burgerMenu.showBurgerMenu();
     } else {
         burgerMenu.hideBurgerMenu();

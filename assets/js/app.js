@@ -46,7 +46,6 @@ const getCenteredYElemPagePos = (el) => {
 
 //= components/wave-effect.js
 //= components/modal.js
-//= components/page-scroll.js
 //= components/forms.js
 //= components/background-slider.js
 //= components/tabs.js
@@ -73,11 +72,12 @@ const anchorElems = new Map()
 
 btnWave();
 
-if (window.innerWidth >= 1024) {
-    pageScroll();
-} 
+// if (window.innerWidth >= 1024) {
+//     pageScroll();
+// } 
 
 //= components/nav.js
+//= components/page-scroll.js
 //= components/burger-menu.js
 //= components/anchor.js
 
